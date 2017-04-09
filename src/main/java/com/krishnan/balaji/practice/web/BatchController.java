@@ -25,13 +25,20 @@ public class BatchController {
 	@GetMapping("/batch")
 	public ModelAndView iDontCare() {
 		ModelAndView mav  = new ModelAndView("test");
+		JobExecution execution  = null;
 		try {
-			JobExecution execution = jobLauncher.run(job, new JobParameters());
+			execution = jobLauncher.run(job, new JobParameters());
 			logger.info("Job Exit Status : " + execution.getStatus());
 		} catch (JobExecutionException e) {
 			logger.error("Job ExamResult failed",e);
 		}
-		mav.getModelMap().put("batchResult", "Batch Job triggered. Check the logs for result");
+		StringBuilder jobStatus = new StringBuilder();
+		jobStatus.append("execution.getStartTime(): "+execution.getStartTime()+"\n")
+		.append("execution.getEndTime(): "+execution.getEndTime()+"\n")
+		.append("execution.getStatus(): "+execution.getStatus()+"\n")
+		.append("execution.getLastUpdated() :"+execution.getLastUpdated()+"\n")
+		.append("execution.getExitStatus(): "+ execution.getExitStatus()+"\n");
+		mav.getModelMap().put("batchResult", "Batch Job triggered, overview : \n"+jobStatus.toString()+ "Check the logs for result");
 		return mav;
 	}
 

@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.krishnan.balaji.practice.model.Dummy;
 import com.krishnan.balaji.practice.service.DummyService;
@@ -70,7 +72,7 @@ public class DummyController {
 			mav.getModelMap().put("modelObject", userValues);
 			return mav;
 		}
-		if(isValid(userValues)){
+		else {
 				System.out.println("setting image content");
 				userValues.setSomeImage(imageFile.getBytes());
 			try {
@@ -84,19 +86,16 @@ public class DummyController {
 				Path filePath = Files.write(path, fileBytes);
 				userValues.setSomeFile(filePath.toFile());
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			session.setAttribute(sessionValidatedObject, userValues);
 			mav.getModelMap().put("validatedObject", userValues);
 			mav.setViewName(viewFolderPrefix+"form_confirm");
-		}else{
-			mav.getModelMap().put("modelObject", userValues);
-			mav.setViewName(viewFolderPrefix+"form_new");
 		}
 		return mav;
 	}
 	
+	//TODO redesign
 	@PostMapping("edit")
 	public ModelAndView edit(Dummy dummy){
 		ModelAndView mav = new ModelAndView(viewFolderPrefix+"form_new");
@@ -105,18 +104,21 @@ public class DummyController {
 	}
 	
 	@GetMapping(value={"cancel","","/"})
-	public ModelAndView cancelCreation(){
+	public ModelAndView cancelCreation(ModelMap model){
 		ModelAndView mav = new ModelAndView(viewFolderPrefix+"form_list");
-		mav.getModelMap().put("dummies", getDummyList());
+		if(null != model && model.get("dummies")!=null)
+			mav.addAllObjects(model);
+		else
+			mav.getModelMap().put("dummies", getDummyList());
 		return mav;
 	}
 	
 	@PostMapping("new")
 	public ModelAndView create(HttpSession session, 
 			@RequestParam(value="cancel",required=false) String cancel,
-			@RequestParam(value="edit",required=false) String edit){
+			@RequestParam(value="edit",required=false) String edit, RedirectAttributes redirectAttr){
 		if(cancel!= null && cancel.equalsIgnoreCase("cancel")){
-			return cancelCreation();
+			return cancelCreation(null);
 		}
 		else if(edit != null && edit.equalsIgnoreCase("edit")){
 			Dummy finalValue = (Dummy)session.getAttribute(sessionValidatedObject);
@@ -125,10 +127,10 @@ public class DummyController {
 		}
 		else{
 			Dummy finalValue = (Dummy)session.getAttribute(sessionValidatedObject);
-			session.removeAttribute(sessionValidatedObject);
 			service.create(finalValue);
-			ModelAndView mav = new ModelAndView(viewFolderPrefix+"form_list");
-			mav.getModelMap().put("dummies", getDummyList());	
+			session.removeAttribute(sessionValidatedObject);
+			redirectAttr.addFlashAttribute("dummies", getDummyList());
+			ModelAndView mav = new ModelAndView("redirect:/dummy/");
 			return mav;
 		}
 		
@@ -177,7 +179,4 @@ public class DummyController {
 		return dummyList;
 	}
 
-	private boolean isValid(Dummy object) {
-		return true;
-	}
 }

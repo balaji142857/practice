@@ -115,25 +115,6 @@ public class Dummy {
 		this.subscriptions = subscriptions;
 	}
 
-	/*
-	 * public LocalDate getSomeDate() { return someDate; }
-	 * 
-	 * public void setSomeDate(LocalDate someDate) { this.someDate = someDate; }
-	 * 
-	 * public File getSomeFile() { return someFile; }
-	 * 
-	 * public void setSomeFile(File someFile) { this.someFile = someFile; }
-	 * 
-	 * public Set<File> getSomeFiles() { return someFiles; }
-	 * 
-	 * public void setSomeFiles(Set<File> someFiles) { this.someFiles =
-	 * someFiles; }
-	 * 
-	 * public File getSomeImage() { return someImage; }
-	 * 
-	 * public void setSomeImage(File someImage) { this.someImage = someImage; }
-	 */
-
 	public String getGender() {
 		return gender;
 	}

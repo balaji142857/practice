@@ -11,7 +11,7 @@ import com.krishnan.balaji.practice.model.User;
 import com.krishnan.balaji.practice.repos.UserRepository;
 
 @Service
-@Transactional("tranactionManager")
+@Transactional("transactionManager")
 public class UserInfoServiceImpl implements UserInfoService {
 
 	@Autowired
