@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+	<!-- <var name="quizModel"
+		class="com.krishnan.balaji.practice.webflow.quiz.Quiz" /> -->
+		
+	<on-start>
+		<evaluate expression="quizService.initialize()" result="flowScope.quizModel" />
+	</on-start>
+		
+	<view-state id="quizHome" view="/WEB-INF/views/quizHome.jsp" model="flowScope.quizModel">
+		<transition on="quizSelected" to="viewQuestion" >
+			<evaluate expression="quizService.loadQuizOptions(flowScope.quizModel)" result="flowScope.quizModel" />
+		</transition>
+	</view-state>
+
+	<view-state id="viewQuestion" view="/WEB-INF/views/quizQuestion.jsp" model="flowScope.quizModel">
+		<transition on="next" to="nextQuestion"></transition>
+		<transition on="cancel" to="quizHome"></transition>
+		<transition on="finish" to="finishQuiz"></transition>
+	</view-state>
+	
+	<action-state id="nextQuestion">
+		<evaluate expression="quizService.next(flowScope.quizModel,requestParameters.answerId)"></evaluate>
+		<transition to="viewQuestion"></transition>
+	</action-state>
+	
+	<action-state id="finishQuiz">
+		<evaluate expression="quizService.finish(flowScope.quizModel)"></evaluate>
+		<transition to="quizResult"></transition>
+	</action-state>
+	<view-state id="quizResult" view="/WEB-INF/views/quizResult.jsp" model="flowScope.quizModel">
+	</view-state>
+	
+</flow>
