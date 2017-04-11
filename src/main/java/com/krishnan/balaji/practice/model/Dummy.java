@@ -6,26 +6,30 @@ import java.util.Set;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.Version;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.envers.Audited;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.krishnan.balaji.practice.model.validation.Phone;
 
 @Entity
-@Table
-public class Dummy {
+@Audited
+@EntityListeners(AuditingEntityListener.class)
+public class Dummy extends AuditInfo {
 
 	@Id
 	@GeneratedValue
@@ -60,7 +64,8 @@ public class Dummy {
 	// page
 	@Lob
 	private byte[] someImage;
-
+	@Version
+	private int version;
 	// custom object
 	/*
 	 * private LocalDate someDate; // multiple file upload private Set<File>
@@ -146,4 +151,14 @@ public class Dummy {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
+	
+	
 }

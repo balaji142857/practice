@@ -12,6 +12,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -27,6 +28,7 @@ import com.p6spy.engine.spy.P6DataSource;
 @ComponentScan(basePackages = { "com.krishnan.balaji.practice.config",
 		"com.krishnan.balaji.practice.service" })
 @EnableJpaRepositories("com.krishnan.balaji.practice.repos")
+@EnableJpaAuditing
 @PropertySource(value = { "classpath:hibernate.properties" })
 @EnableTransactionManagement()
 public class RootConfig {

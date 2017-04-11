@@ -3,20 +3,27 @@ package com.krishnan.balaji.practice.model;
 import java.util.Set;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
+import org.hibernate.envers.Audited;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "XUser")
-public class User implements UserDetails {
+@Audited
+@EntityListeners(AuditingEntityListener.class)
+public class User extends AuditInfo implements UserDetails{
 
+	private static final long serialVersionUID = -7619833492934039040L;
+	
 	@Id
 	@GeneratedValue
 	private long id;
@@ -29,6 +36,8 @@ public class User implements UserDetails {
 	private boolean accountLocked;
 	private boolean credentialsExpired;
 	private boolean enabled;
+	@Version
+	private int version;
 	//@ManyToMany(fetch=FetchType.EAGER)
 	@ManyToMany()
 	@JoinTable(name="user_role",
@@ -142,6 +151,14 @@ public class User implements UserDetails {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	

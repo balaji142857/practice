@@ -3,30 +3,34 @@ package com.krishnan.balaji.practice.model;
 import java.util.Set;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.Version;
 
+import org.hibernate.envers.Audited;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 
 @Entity
-@Table
-public class Role implements GrantedAuthority {
+@Audited
+@EntityListeners(AuditingEntityListener.class)
+public class Role extends AuditInfo implements GrantedAuthority {
 
+	private static final long serialVersionUID = -5150436536641186359L;
 	@Id
 	@GeneratedValue
 	private long id;
 	private String name;
-	//@ManyToMany(fetch=FetchType.EAGER)
+	// @ManyToMany(fetch=FetchType.EAGER)
 	@ManyToMany
-	@JoinTable(name = "user_role",
-	inverseJoinColumns = @JoinColumn(name = "user_id"), 
-	joinColumns = @JoinColumn(name = "role_id"))
+	@JoinTable(name = "user_role", inverseJoinColumns = @JoinColumn(name = "user_id"), joinColumns = @JoinColumn(name = "role_id"))
 	private Set<User> users;
+	@Version
+	private int version;
 
 	public long getId() {
 		return id;
@@ -57,4 +61,11 @@ public class Role implements GrantedAuthority {
 		this.users = users;
 	}
 
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
 }

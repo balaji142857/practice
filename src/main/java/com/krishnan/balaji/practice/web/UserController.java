@@ -1,10 +1,12 @@
 package com.krishnan.balaji.practice.web;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -73,21 +75,13 @@ public class UserController {
 		session.removeAttribute("password");
 		session.removeAttribute("user_roles");
 		setDefaults(user);
+		
 		service.create(user);
 		//TODO get the message from resource bundle , locale basedd
 		redirectAttributes.addFlashAttribute("message", "User added");
 		return mav;
 	}
 
-	private void setDefaults(User user) {
-		if(null != user ){
-			user.setAccountExpired(false);
-			user.setCredentialsExpired(false);
-			user.setAccountLocked(true);
-			user.setEnabled(true);
-		}
-	}
-	
 	@RequestMapping(value="/{id}",method=RequestMethod.GET)
 	public ModelAndView viewUserInfo(@PathVariable long id){
 		ModelAndView mav = new ModelAndView(folderPrefix+"viewUserInfo");
@@ -108,9 +102,38 @@ public class UserController {
 		System.out.println("In editUserInfo");
 		ModelAndView mav = new ModelAndView("redirect:/"+folderPrefix);
 		redirectAttr.addFlashAttribute("message", "User edited successfuly");
+		//TODO this logic belongs in the service layer, not web
+		if(null != SecurityContextHolder.getContext().getAuthentication()){
+			if(null != SecurityContextHolder.getContext().getAuthentication().getPrincipal() && 
+					SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof User){
+				editedUser.setCreatedBy(((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
+			}
+			else
+				editedUser.setCreatedBy("guest");
+		}	
+		editedUser.setUpdatedOn(LocalDateTime.now());
 		service.update(editedUser);
 		//mav.getModelMap().put("user", user);
 		redirectAttr.addFlashAttribute("user",id);
 		return mav;
+	}
+	
+	private void setDefaults(User user) {
+		if(null != user ){
+			user.setAccountExpired(false);
+			user.setCredentialsExpired(false);
+			user.setAccountLocked(true);
+			//TODO move the auditing info to service layer
+			user.setEnabled(true);
+			if(null != SecurityContextHolder.getContext().getAuthentication()){
+				if(null != SecurityContextHolder.getContext().getAuthentication().getPrincipal() && 
+						SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof User){
+					user.setCreatedBy(((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
+				}
+				else
+					user.setCreatedBy("guest");
+			}
+			user.setCreatedOn(LocalDateTime.now());
+		}
 	}
 }

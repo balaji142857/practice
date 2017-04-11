@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -30,6 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.krishnan.balaji.practice.model.Dummy;
+import com.krishnan.balaji.practice.model.User;
 import com.krishnan.balaji.practice.service.DummyService;
 
 @Controller
@@ -127,10 +130,21 @@ public class DummyController {
 		}
 		else{
 			Dummy finalValue = (Dummy)session.getAttribute(sessionValidatedObject);
+			//TODO move to service layer
+			finalValue.setCreatedOn(LocalDateTime.now());
+			if(null != SecurityContextHolder.getContext().getAuthentication()){
+				if(null != SecurityContextHolder.getContext().getAuthentication().getPrincipal() && 
+						SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof User){
+					finalValue.setCreatedBy(((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
+				}
+				else
+					finalValue.setCreatedBy("guest");
+			}		
 			service.create(finalValue);
 			session.removeAttribute(sessionValidatedObject);
 			redirectAttr.addFlashAttribute("dummies", getDummyList());
-			ModelAndView mav = new ModelAndView("redirect:/dummy/");
+			//redirect:/dummy/ (controller mapping not the view name - since both are same viewFolderPrexfix variable is used
+			ModelAndView mav = new ModelAndView("redirect:/"+viewFolderPrefix+"/");
 			return mav;
 		}
 		
