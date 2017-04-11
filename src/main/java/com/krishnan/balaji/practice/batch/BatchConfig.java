@@ -26,21 +26,16 @@ import com.krishnan.balaji.practice.batch.simple.ExamResult;
 public class BatchConfig {
 
 	@Bean
-	public StepBuilderFactory stepBuilders(JobRepository jobRepository,PlatformTransactionManager transactionManager){
-		StepBuilderFactory factory = new StepBuilderFactory(jobRepository, transactionManager);
-		return factory;
-	}
-	
-	@Bean
-	public JobBuilderFactory jobBuilders(JobRepository repository) {
-		JobBuilderFactory jobBuilders = new JobBuilderFactory(repository);
-		return jobBuilders;
-	}
-
-	@Bean
 	public MapJobRepositoryFactoryBean jobRepository() {
 		return new MapJobRepositoryFactoryBean();
 	}
+
+	@Bean
+	public JobBuilderFactory jobBuilderFactory(JobRepository repository) {
+		JobBuilderFactory jobBuilders = new JobBuilderFactory(repository);
+		return jobBuilders;
+	}
+	
 
 	@Bean
 	public JobLauncher jobLauncher(JobRepository repository) {
@@ -48,22 +43,19 @@ public class BatchConfig {
 		launcher.setJobRepository(repository);
 		return launcher;
 	}
-
-
-	@Bean
+	
+	@Bean(name="batchTransactionManager")
 	public ResourcelessTransactionManager batchTransactionManager() {
 		return new ResourcelessTransactionManager();
 	}
-
+		
+	
 	@Bean
-	public Job flatfileToDbJob(@Qualifier("simpleItemListener") JobExecutionListener listener,
-			Step step) throws Exception {
-		return jobBuilders(jobRepository().getObject())
-				.get("someJob")
-				.listener(listener)
-				.start(step)
-				.build();
+	public StepBuilderFactory stepBuilderFactory(JobRepository repo){
+		StepBuilderFactory factory = new StepBuilderFactory(repo, batchTransactionManager());
+		return factory;
 	}
+	
 
 	@Bean
 	public Step step(JobRepository repository,
@@ -73,7 +65,7 @@ public class BatchConfig {
 			@Qualifier("simpleItemProcessor") ItemProcessor<ExamResult, ExamResult> itemProcessor,
 			@Qualifier("simpleItemListener") JobExecutionListener jobListener
 			) throws Exception {
-		return stepBuilders(repository,batchTransactionManager)
+		return stepBuilderFactory(repository)
 				.get("step")
 				.<ExamResult, ExamResult> chunk(1)
 				.reader(flatFileItemReader)
@@ -82,4 +74,15 @@ public class BatchConfig {
 				.listener(jobListener)
 				.build();
 	}
+	
+	@Bean
+	public Job flatfileToDbJob(@Qualifier("simpleItemListener") JobExecutionListener listener,
+			Step step) throws Exception {
+		return jobBuilderFactory(jobRepository().getObject())
+				.get("someJob")
+				.listener(listener)
+				.start(step)
+				.build();
+	}
+	
 }

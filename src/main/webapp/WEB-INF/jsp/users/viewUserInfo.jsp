@@ -57,23 +57,6 @@
 			</div>
 			
 			
-			<%-- <div class="form-group">
-			<label for="address" class="control-label col-sm-2">Address</label>
-			<div class="col-sm-10">
-			<form:errors path="info.address.*" cssClass="error col-sm-8" />
-			<form:input path="info.address.contactName" cssClass="form-control col-sm-8" readonly="readonly"/>
-			<form:input path="info.address.doorNumber" cssClass="form-control col-sm-4" readonly="readonly"/>
-			<form:input path="info.address.streetName" cssClass="form-control col-sm-4" readonly="readonly"/>
-			<form:input path="info.address.locality" cssClass="form-control col-sm-4" readonly="readonly"/>
-			<form:input path="info.address.landmark" cssClass="form-control col-sm-4" readonly="readonly"/>	  
-	 		<form:input path="info.address.cityOrDistrict" cssClass="form-control col-sm-4" readonly="readonly"/>	
-	 		<form:input path="info.address.zipCode" cssClass="form-control col-sm-4" readonly="readonly"/>
-	
-	 phone
-	 alternatePhone
-			</div>
-			</div> --%>
-
 			<div class="form-group">
 				<label for="lastName" class="control-label col-sm-2"></label>
 				<div class="col-sm-10">

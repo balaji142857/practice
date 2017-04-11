@@ -33,6 +33,12 @@ public class SimpleBatchConfig {
 		return reader;
 	}
 
+	@Bean(name="simpleItemProcessor")
+	public ItemProcessor<ExamResult, ExamResult> itemProcessor() {
+		return new ExamResultItemProcessor();
+	}
+	
+	
 	@Bean(name="simpleItemWriter")
 	public ItemWriter<ExamResult> xmlItemWriter() throws URISyntaxException {
 		StaxEventItemWriter<ExamResult> writer = new StaxEventItemWriter<>();
@@ -43,11 +49,6 @@ public class SimpleBatchConfig {
 		marshaller.setClassesToBeBound(ExamResult.class);
 		writer.setMarshaller(marshaller);
 		return writer;
-	}
-
-	@Bean(name="simpleItemProcessor")
-	public ItemProcessor<ExamResult, ExamResult> itemProcessor() {
-		return new ExamResultItemProcessor();
 	}
 
 	@Bean(name="simpleItemListener")

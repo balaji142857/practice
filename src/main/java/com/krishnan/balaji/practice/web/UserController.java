@@ -106,7 +106,8 @@ public class UserController {
 	@RequestMapping(value="/{id}/edit",method=RequestMethod.POST)
 	public ModelAndView editUserInfo(User editedUser,@PathVariable long id, RedirectAttributes redirectAttr){
 		System.out.println("In editUserInfo");
-		ModelAndView mav = new ModelAndView("redirect:/"+folderPrefix+"list");
+		ModelAndView mav = new ModelAndView("redirect:/"+folderPrefix);
+		redirectAttr.addFlashAttribute("message", "User edited successfuly");
 		service.update(editedUser);
 		//mav.getModelMap().put("user", user);
 		redirectAttr.addFlashAttribute("user",id);

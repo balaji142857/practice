@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -21,12 +21,13 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
+import com.p6spy.engine.spy.P6DataSource;
+
 @Configuration
 @ComponentScan(basePackages = { "com.krishnan.balaji.practice.config",
 		"com.krishnan.balaji.practice.service" })
 @EnableJpaRepositories("com.krishnan.balaji.practice.repos")
-@PropertySource(value = { "classpath:/datasource.properties",
-		"classpath:hibernate.properties" })
+@PropertySource(value = { "classpath:hibernate.properties" })
 @EnableTransactionManagement()
 public class RootConfig {
 
@@ -35,11 +36,10 @@ public class RootConfig {
 
 	@Bean(name = "dataSource")
 	public DataSource dataSource() {
-		DriverManagerDataSource ds = new DriverManagerDataSource();
-		ds.setDriverClassName(env.getProperty("driverClassName"));
-		ds.setUrl(env.getProperty("connectionURL"));
-		ds.setPassword(env.getProperty("password"));
-		ds.setUsername(env.getProperty("username"));
+		JndiDataSourceLookup dsLookup = new JndiDataSourceLookup();
+		dsLookup.setResourceRef(true);
+		DataSource dataSource = dsLookup.getDataSource("jdbc/derbyDataSource");
+		P6DataSource ds  = new P6DataSource(dataSource);
 		return ds;
 	}
 
@@ -79,6 +79,7 @@ public class RootConfig {
 		return emf.unwrap(SessionFactory.class);
 	}
 
+	//TODO this belongs to web config, not in core
 	@Bean(name = "filterMultipartResolver")
 	public CommonsMultipartResolver filterMultipartResolver() {
 	    CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
