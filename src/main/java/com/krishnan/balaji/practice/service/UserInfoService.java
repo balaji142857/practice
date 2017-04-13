@@ -2,9 +2,11 @@ package com.krishnan.balaji.practice.service;
 
 import java.util.Set;
 
+import org.springframework.security.core.userdetails.UserDetailsService;
+
 import com.krishnan.balaji.practice.model.User;
 
-public interface UserInfoService {
+public interface UserInfoService extends UserDetailsService{
 
 	public User create(User user);
 	

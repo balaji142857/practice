@@ -13,8 +13,6 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import com.krishnan.balaji.practice.model.validation.EmployeeFormValidator;
-
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = { "com.krishnan.balaji.practice.web","com.krishnan.balaji.practice.model.validation" })
@@ -46,11 +44,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	public void addFormatters(FormatterRegistry formatterRegistry) {
 		formatterRegistry.addFormatter(new DateFormatter("yyyyMMdd"));
 		formatterRegistry.addFormatter(roleFormatter);
-	}
-	
-	@Bean(name="employeeValidator")
-	public EmployeeFormValidator validator(){
-		return new EmployeeFormValidator();
 	}
 	
 	@Bean

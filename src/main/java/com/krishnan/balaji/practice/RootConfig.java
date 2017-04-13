@@ -1,11 +1,10 @@
-package com.krishnan.balaji.practice.config;
+package com.krishnan.balaji.practice;
 
 import java.util.Properties;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -76,12 +75,12 @@ public class RootConfig {
 		return txManager;
 	}
 	
-	@Bean
+	/*@Bean
 	public SessionFactory sessionFactory(EntityManagerFactory emf){
 		return emf.unwrap(SessionFactory.class);
-	}
+	}*/
 
-	//TODO this belongs to web config, not in core
+	//TODO these two belong to web config, not in core
 	@Bean(name = "filterMultipartResolver")
 	public CommonsMultipartResolver filterMultipartResolver() {
 	    CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();

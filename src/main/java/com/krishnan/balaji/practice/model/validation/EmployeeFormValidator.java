@@ -1,11 +1,12 @@
 package com.krishnan.balaji.practice.model.validation;
 
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import com.krishnan.balaji.practice.model.Employee;
-
+@Component("employeeValidator")
 public class EmployeeFormValidator implements Validator {
 
 	//which objects can be validated by this validator

@@ -4,6 +4,8 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -62,6 +64,14 @@ public class UserInfoServiceImpl implements UserInfoService {
 
 	@Override
 	public void deleteByEmail(String email) {
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		UserDetails ud = repo.getByUsername(username);		
+		if (null == ud)
+			throw new UsernameNotFoundException(username + " not found.");
+		return ud;
 	}
 
 }

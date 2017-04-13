@@ -2,6 +2,7 @@ package com.krishnan.balaji.practice.model;
 
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
@@ -27,6 +28,7 @@ public class User extends AuditInfo implements UserDetails{
 	@Id
 	@GeneratedValue
 	private long id;
+	@Column(unique=true)
 	private String username;
 	private String firstName;
 	private String email;
