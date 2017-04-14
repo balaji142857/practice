@@ -12,10 +12,10 @@
 
 	<appender name="dailyRollingFileAppender"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<File>c:/tmp/rest-demo.log</File>
+		<File>/tmp/logs/practice.log</File>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- daily rollover -->
-			<FileNamePattern>/tmp/practice.%d{yyyy-MM-dd}.log</FileNamePattern>
+			<FileNamePattern>/tmp/logs/practice.%d{yyyy-MM-dd}.log</FileNamePattern>
 			<!-- keep 30 days' worth of history -->
 			<maxHistory>30</maxHistory>
 		</rollingPolicy>
@@ -32,7 +32,7 @@
 	</logger>
 
 	<root>
-		<level value="INFO" />
+		<level value="DEBUG" />
 		<appender-ref ref="consoleAppender" />
 		<appender-ref ref="dailyRollingFileAppender" />
 	</root>

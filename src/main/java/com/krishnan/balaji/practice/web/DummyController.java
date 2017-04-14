@@ -82,7 +82,8 @@ public class DummyController {
 				System.out.println("writing uplaoded file to disk");
 				byte[] fileBytes = someFile.getBytes();				
 				String dateFolder=DateTimeFormatter.BASIC_ISO_DATE.format(LocalDate.now());
-				String fileName = DateTimeFormatter.ISO_LOCAL_TIME.format(LocalTime.now());
+				//String fileName = DateTimeFormatter.ISO_LOCAL_TIME.format(LocalTime.now());
+				String fileName = DateTimeFormatter.ofPattern("HHmmSS").format(LocalTime.now());
 				Path path = Paths.get("/tmp/"+dateFolder+"/"+fileName);
 				System.out.println("file path is "+path);
 				Files.createFile(path);

@@ -122,7 +122,7 @@ public class UserController {
 		if(null != user ){
 			user.setAccountExpired(false);
 			user.setCredentialsExpired(false);
-			user.setAccountLocked(true);
+			user.setAccountLocked(false);
 			//TODO move the auditing info to service layer
 			user.setEnabled(true);
 			if(null != SecurityContextHolder.getContext().getAuthentication()){
