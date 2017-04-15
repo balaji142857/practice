@@ -1,4 +1,4 @@
-package com.krishnan.balaji.practice;
+package com.krishnan.balaji.practice.config;
 
 import java.util.Properties;
 
@@ -24,12 +24,12 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import com.p6spy.engine.spy.P6DataSource;
 
 @Configuration
-@ComponentScan(basePackages = { "com.krishnan.balaji.practice.config",
-		"com.krishnan.balaji.practice.service" })
+@ComponentScan(basePackageClasses={com.krishnan.balaji.practice.config.SecurityConfig.class})
+@ComponentScan(basePackages = {"com.krishnan.balaji.practice.service" })
 @EnableJpaRepositories("com.krishnan.balaji.practice.repos")
 @EnableJpaAuditing
 @PropertySource(value = { "classpath:hibernate.properties" })
-@EnableTransactionManagement()
+@EnableTransactionManagement
 public class RootConfig {
 
 	@Autowired
@@ -46,11 +46,10 @@ public class RootConfig {
 
 	public Properties hibernateProperties() {
 		Properties p = new Properties();
-		p.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
-		p.put("hibernate.format_sql", env.getProperty("hibernate.format_sql"));
+		/*p.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
+		p.put("hibernate.format_sql", env.getProperty("hibernate.format_sql"));*/
 		p.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
-		p.put("hibernate.hbm2ddl.auto",
-				env.getProperty("hibernate.hbm2ddl.auto"));
+		p.put("hibernate.hbm2ddl.auto",env.getProperty("hibernate.hbm2ddl.auto"));
 		// p.put("", env.getProperty(""));
 		return p;
 	}
@@ -75,11 +74,6 @@ public class RootConfig {
 		return txManager;
 	}
 	
-	/*@Bean
-	public SessionFactory sessionFactory(EntityManagerFactory emf){
-		return emf.unwrap(SessionFactory.class);
-	}*/
-
 	//TODO these two belong to web config, not in core
 	@Bean(name = "filterMultipartResolver")
 	public CommonsMultipartResolver filterMultipartResolver() {

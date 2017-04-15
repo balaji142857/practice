@@ -5,7 +5,10 @@ import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,7 +27,7 @@ import com.krishnan.balaji.practice.service.UserInfoService;
 @RequestMapping("/users")
 public class UserController {
 
-	
+	private static final Logger log = LoggerFactory.getLogger(UserController.class);
 	private static final String folderPrefix="users/";
 	@Autowired
 	private UserInfoService service;
@@ -43,8 +46,11 @@ public class UserController {
 		
 	@RequestMapping(value={"/"})
 	public ModelAndView list(){
+		log.debug("servicing request for users/");
 		ModelAndView mav = new ModelAndView(folderPrefix+"list");
+		log.debug("delegating to  service layer");
 		Set<User> users = service.get();
+		log.debug("got the users set from service layer : "+users);
 		mav.getModel().put("usersList", users);
 		return mav;
 	}
@@ -85,39 +91,51 @@ public class UserController {
 	@RequestMapping(value="/{id}",method=RequestMethod.GET)
 	public ModelAndView viewUserInfo(@PathVariable long id){
 		ModelAndView mav = new ModelAndView(folderPrefix+"viewUserInfo");
-		mav.getModelMap().put("user", service.getById(id));
+		User user = service.getById(id);
+		mav.getModelMap().put("user", user);
 		return mav;
 	}
 	
 	@RequestMapping(value="/{id}/edit",method=RequestMethod.GET)
-	public ModelAndView serveEditRequest(@PathVariable long id){
+	public ModelAndView serveEditRequest(@PathVariable long id,HttpSession session){
 		ModelAndView mav = new ModelAndView(folderPrefix+"editUserInfo");
 		User user = service.getById(id);
+		session.setAttribute("userToEdit",user);
 		mav.getModelMap().put("userToEdit", user);
 		return mav;
 	}
 	
 	@RequestMapping(value="/{id}/edit",method=RequestMethod.POST)
-	public ModelAndView editUserInfo(User editedUser,@PathVariable long id, RedirectAttributes redirectAttr){
-		System.out.println("In editUserInfo");
+	public ModelAndView editUserInfo(User editedUser,@PathVariable long id, 
+			RedirectAttributes redirectAttr,
+			HttpSession session){
+		log.debug("In editUserInfo");
 		ModelAndView mav = new ModelAndView("redirect:/"+folderPrefix);
 		redirectAttr.addFlashAttribute("message", "User edited successfuly");
 		//TODO this logic belongs in the service layer, not web
+		User repoUser = (User) session.getAttribute("userToEdit");
+		repoUser.setUsername(editedUser.getUsername());
+		repoUser.setEmail(editedUser.getEmail());
+		repoUser.setFirstName(editedUser.getFirstName());
+		repoUser.setLastName(editedUser.getLastName());
+		repoUser.setAuthorities(editedUser.getAuthorities());
 		if(null != SecurityContextHolder.getContext().getAuthentication()){
 			if(null != SecurityContextHolder.getContext().getAuthentication().getPrincipal() && 
 					SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof User){
-				editedUser.setCreatedBy(((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
+				repoUser.setUpdatedBy(((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
 			}
 			else
-				editedUser.setCreatedBy("guest");
+				repoUser.setUpdatedBy("guest");
 		}	
-		editedUser.setUpdatedOn(LocalDateTime.now());
-		service.update(editedUser);
+		repoUser.setUpdatedOn(LocalDateTime.now());
+		service.update(repoUser);
 		//mav.getModelMap().put("user", user);
 		redirectAttr.addFlashAttribute("user",id);
 		return mav;
 	}
 	
+	
+
 	private void setDefaults(User user) {
 		if(null != user ){
 			user.setAccountExpired(false);

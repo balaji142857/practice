@@ -8,8 +8,9 @@
 <body>
 	<c:import url="/resources/template/header.jsp"></c:import>
 	<div class="container">
-	
-		<form:form action="edit" method="post" modelAttribute="userToEdit" cssClass="form-horizontal">
+	<c:url value="/users/${userToEdit.id}/edit" var="postURL"/>
+	<c:out value="${postURL} is the form post url"></c:out>	
+		<form:form action="${postURL}" method="post" modelAttribute="userToEdit" cssClass="form-horizontal">
 
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="username">User Name:</label>
@@ -53,7 +54,7 @@
 			<div class="form-group">
 				<label for="roles" class="control-label col-sm-2">Roles:</label>
 				<div class="col-sm-10">
-					<form:select id="authorities" class="form-control col-sm-6" path="authoritites" items="${availableRoles}"></form:select>
+					<form:select id="authorities" class="form-control col-sm-6" path="authorities" items="${availableRoles}"></form:select>
 					<form:errors path="authorities" cssClass="error col-sm-4" />
 				</div>
 			</div>
@@ -69,23 +70,6 @@
 					</c:forEach>
 				</div>
 			</div>
-			
-			<%-- <div class="form-group">
-			<label for="address" class="control-label col-sm-2">Address</label>
-			<div class="col-sm-10">
-			<form:errors path="info.address.*" cssClass="error col-sm-8" />
-			<form:input path="info.address.contactName" cssClass="form-control col-sm-8" placeholder="contact name"/>
-			<form:input path="info.address.doorNumber" cssClass="form-control col-sm-4" placeholder="door number"/>
-			<form:input path="info.address.streetName" cssClass="form-control col-sm-4" placeholder="street name"/>
-			<form:input path="info.address.locality" cssClass="form-control col-sm-4" placeholder="locality"/>
-			<form:input path="info.address.landmark" cssClass="form-control col-sm-4" placeholder="landmark (near so and so..)"/>	  
-	 		<form:input path="info.address.cityOrDistrict" cssClass="form-control col-sm-4" placeholder="City"/>	
-	 		<form:input path="info.address.zipCode" cssClass="form-control col-sm-4" placeholder="postal zip code"/>
-	
-	 phone
-	 alternatePhone
-			</div>
-			</div> --%>
 			
 					
 			<div class="form-group">

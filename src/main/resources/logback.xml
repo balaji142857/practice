@@ -25,10 +25,10 @@
 		</encoder>
 	</appender>
 
-	<logger name="org.springframework" level="debug" additivity="false">
-		<level value="DEBUG" />
+	<logger name="org.springframework" level="info" additivity="false">
+		<level value="INFO" />
 		<appender-ref ref="dailyRollingFileAppender" />
-		<appender-ref ref="consoleAppender" />
+		<!-- <appender-ref ref="consoleAppender" /> -->
 	</logger>
 
 	<root>

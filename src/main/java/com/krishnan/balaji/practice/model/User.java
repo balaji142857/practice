@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -40,8 +41,8 @@ public class User extends AuditInfo implements UserDetails{
 	private boolean enabled;
 	@Version
 	private int version;
-	//@ManyToMany(fetch=FetchType.EAGER)
-	@ManyToMany()
+	@ManyToMany(fetch=FetchType.EAGER)
+	//@ManyToMany()
 	@JoinTable(name="user_role",
 	joinColumns=@JoinColumn(name="user_id"),
 	inverseJoinColumns=@JoinColumn(name="role_id"))

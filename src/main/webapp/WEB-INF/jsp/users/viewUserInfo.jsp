@@ -8,12 +8,14 @@
 <body>
 	<c:import url="/resources/template/header.jsp"></c:import>
 	<div class="container">
-		<form:form action="${user.id}/edit" method="post" modelAttribute="user" cssClass="form-horizontal">
+	<c:url value="/users/${user.id}/edit" var="postURL"/>
+	<c:out value="${postURL} is the form post url"></c:out>
+		<form:form action="${postURL}" method="get" modelAttribute="user" cssClass="form-horizontal">
 
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="username">UserName:</label>
 				<div class="col-sm-10">
-					<form:input id="username" path="username"
+					<form:input id="username" path="username" disabled="true"
 						cssClass="form-control col-sm-6" readonly="readonly" />
 				</div>
 			</div>
@@ -21,7 +23,7 @@
 			<div class="form-group">
 				<label for="email" class="control-label col-sm-2">Email:</label>
 				<div class="col-sm-10">
-					<form:input id="email" path="email" readonly="readonly"
+					<form:input id="email" path="email" readonly="readonly" disabled="true"
 						cssClass="form-control col-sm-6" />
 				</div>
 			</div>
@@ -30,7 +32,7 @@
 				<label for="firstname" class="control-label col-sm-2">First
 					Name:</label>
 				<div class="col-sm-10">
-					<form:input id="firstname" path="firstName"
+					<form:input id="firstname" path="firstName" disabled="true"
 						cssClass="form-control col-sm-6" readonly="readonly" />
 				</div>
 			</div>
@@ -39,7 +41,7 @@
 				<label for="lastName" class="control-label col-sm-2">Last
 					Name:</label>
 				<div class="col-sm-10">
-					<form:input id="lastName" path="lastName"
+					<form:input id="lastName" path="lastName" disabled="true"
 						cssClass="form-control col-sm-6" readonly="readonly" />
 				</div>
 			</div>
@@ -47,12 +49,13 @@
 			<div class="form-group">
 				<label for="currentRoles" class="control-label col-sm-2">Roles:</label>
 				<div class="col-sm-10">
-					<c:forEach items="${user.authorities}" var="role">
+					<form:select path="authorities" items="${availableRoles}" disabled="true" cssClass="form-control" />
+					<%-- <c:forEach items="${user.authorities}" var="role">
 						<h4 style="display: inline">
 							<a href='<c:url value="/roles/${role.id}"/>'><span
 								class="label label-info">${role.name}</span></a>
 						</h4>
-					</c:forEach>
+					</c:forEach> --%>
 				</div>
 			</div>
 			
