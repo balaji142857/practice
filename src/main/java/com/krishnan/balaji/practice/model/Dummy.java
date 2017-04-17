@@ -24,6 +24,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.krishnan.balaji.practice.model.validation.Gender;
 import com.krishnan.balaji.practice.model.validation.Phone;
 
 @Entity
@@ -38,18 +39,15 @@ public class Dummy extends AuditInfo {
 	@Min(18)
 	@Max(100)
 	private long someNumber;
-	// plain text
 	@Size(min = 3, max = 30)
 	private String name;
-	// email validation
 	@NotEmpty
 	@Email
 	private String email;
-	// multiselect
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "dummy_hobbies", joinColumns = @JoinColumn(name = "hobby_id"))
 	private Set<String> hobbies;
-	// radio button
+	@Gender
 	private String gender;
 	// checkbox
 	@ElementCollection(fetch = FetchType.EAGER)
@@ -66,11 +64,6 @@ public class Dummy extends AuditInfo {
 	private byte[] someImage;
 	@Version
 	private int version;
-	// custom object
-	/*
-	 * private LocalDate someDate; // multiple file upload private Set<File>
-	 * someFiles;
-	 */
 
 	public long getId() {
 		return id;
@@ -159,6 +152,5 @@ public class Dummy extends AuditInfo {
 	public void setVersion(int version) {
 		this.version = version;
 	}
-	
-	
+
 }

@@ -18,8 +18,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @ComponentScan(basePackages = { "com.krishnan.balaji.practice.web","com.krishnan.balaji.practice.model.validation" })
 public class WebConfig extends WebMvcConfigurerAdapter {
 
-	/*@Autowired
-	LazyInitInterceptor osivInterceptor;*/
 	@Autowired
 	RoleFormatter roleFormatter;
 
@@ -37,7 +35,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new RequestInterceptor());
-		//registry.addInterceptor(osivInterceptor);
 	}
 
 	@Override

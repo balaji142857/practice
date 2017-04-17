@@ -4,9 +4,11 @@
 <html>
 <head>
 <title>Confirm dummy values</title>
+<link href='<c:url value="/resources/css/style.css"/>' rel="stylesheet">
 </head>
 <body>
-
+<c:import url="/resources/template/header.jsp"></c:import>
+<div class="container">
 	<form:form modelAttribute="validatedObject" action="new" method="post">
 		someNumber:<form:input path="someNumber" disabled="true"/><br>
 		name:<form:input path="name" disabled="true"/><br>
@@ -19,7 +21,7 @@
 		<input type="submit" value="edit" name="edit">
 		<input type="submit" value="cancel" name="cancel">
 	</form:form>
-
-
+</div>
+<c:import url="/resources/template/footer.jsp"></c:import>
 </body>
 </html>

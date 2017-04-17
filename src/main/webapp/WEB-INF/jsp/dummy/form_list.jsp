@@ -4,32 +4,26 @@
 <html>
 <head>
 <title>List of dummies</title>
+<link href='<c:url value="/resources/css/style.css"/>' rel="stylesheet">
 </head>
 <body>
-	
-	<c:forEach items="${dummies}" var="dummy">
-		someNumber:${dummy.someNumber}<br>
-		name:${dummy.name}<br>
-		email:${dummy.email}<br>
-		hobbies:${dummy.hobbies}<br>
-		gender:${dummy.gender}<br>
-		phone:${dummy.phone}<br>
-		subscriptions:${dummy.subscriptions}<br>
-		<%-- someDate:${dummy.someDate}<br>
-		someFile:${dummy.someFile}<br>
-		someFiles:${dummy.someFiles}<br>
-		someImage:${dummy.someImage}<br> --%>
-	<!-- 	private long someNumber;
-	private String name;
-	private String email;
-	private Set<String> hobbies;
-	private Gender gender;*/
-	private Set<String> subscriptions;	
-	private LocalDate date;
-	private File file;
-	private Set<File> files;
-	private File image; -->
-	</c:forEach>
-
+	<c:import url="/resources/template/header.jsp"></c:import>
+	<div class="container">
+		<c:forEach items="${dummies}" var="dummy">
+			<div class="panel panel-default panel-modest">
+			  <div class="panel-heading">email:${dummy.email}</div>
+			  <div class="panel-body">
+				someNumber:${dummy.someNumber}<br>
+				name:${dummy.name}<br>
+				email:${dummy.email}<br>
+				hobbies:${dummy.hobbies}<br>
+				gender:${dummy.gender}<br>
+				phone:${dummy.phone}<br>
+				subscriptions:${dummy.subscriptions}<br>  
+			  </div>
+			</div>
+		</c:forEach>
+	</div>
+<c:import url="/resources/template/footer.jsp"></c:import>
 </body>
 </html>

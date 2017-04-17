@@ -17,3 +17,14 @@ body {
 .form-group{
 	padding-bottom: 2px;
 }
+#modest,
+#modest .panel-body,
+.panel-modest,
+.panel-modest .panel-body {
+  display: inline-block;
+}
+.divider{
+    width:5px;
+    height:auto;
+    display:inline-block;
+}
