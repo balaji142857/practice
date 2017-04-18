@@ -4,20 +4,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 //the type of bus - sleeper, AC, semi, seating, charging...
 @Entity
 public class Bus {
 
 	public Bus() {
-		// setting the defaults
-		isSleeper = true;
-		isSeatingOnly = false;
-		isSemiSleeper = false;
-		isChargingAvailable = false;
-		isACavailable = true;
-		isGPSTrackingAvailable = true;
+		chargingAvailable = false;
+		gpsTrackingAvailable = false;
 	}
 
 	@Id
@@ -26,12 +20,9 @@ public class Bus {
 	private String model;
 	@ManyToOne
 	private BusOperator owningEntity;
-	private boolean isSleeper;
-	private boolean isSeatingOnly;
-	private boolean isSemiSleeper;
-	private boolean isChargingAvailable;
-	private boolean isACavailable;
-	private boolean isGPSTrackingAvailable;
+	private BusType busType;
+	private boolean chargingAvailable;
+	private boolean gpsTrackingAvailable;
 	private int seatCapacity;
 
 	public long getId() {
@@ -58,52 +49,20 @@ public class Bus {
 		this.owningEntity = owningEntity;
 	}
 
-	public boolean isSleeper() {
-		return isSleeper;
-	}
-
-	public void setSleeper(boolean isSleeper) {
-		this.isSleeper = isSleeper;
-	}
-
-	public boolean isSeatingOnly() {
-		return isSeatingOnly;
-	}
-
-	public void setSeatingOnly(boolean isSeatingOnly) {
-		this.isSeatingOnly = isSeatingOnly;
-	}
-
-	public boolean isSemiSleeper() {
-		return isSemiSleeper;
-	}
-
-	public void setSemiSleeper(boolean isSemiSleeper) {
-		this.isSemiSleeper = isSemiSleeper;
-	}
-
 	public boolean isChargingAvailable() {
-		return isChargingAvailable;
+		return chargingAvailable;
 	}
 
 	public void setChargingAvailable(boolean isChargingAvailable) {
-		this.isChargingAvailable = isChargingAvailable;
+		this.chargingAvailable = isChargingAvailable;
 	}
 
-	public boolean isACavailable() {
-		return isACavailable;
+	public boolean isGpsTrackingAvailable() {
+		return gpsTrackingAvailable;
 	}
 
-	public void setACavailable(boolean isACavailable) {
-		this.isACavailable = isACavailable;
-	}
-
-	public boolean isGPSTrackingAvailable() {
-		return isGPSTrackingAvailable;
-	}
-
-	public void setGPSTrackingAvailable(boolean isGPSTrackingAvailable) {
-		this.isGPSTrackingAvailable = isGPSTrackingAvailable;
+	public void setGpsTrackingAvailable(boolean isGPSTrackingAvailable) {
+		this.gpsTrackingAvailable = isGPSTrackingAvailable;
 	}
 
 	public int getSeatCapacity() {
@@ -112,6 +71,14 @@ public class Bus {
 
 	public void setSeatCapacity(int seatCapacity) {
 		this.seatCapacity = seatCapacity;
+	}
+
+	public BusType getBusType() {
+		return busType;
+	}
+
+	public void setBusType(BusType busType) {
+		this.busType = busType;
 	}
 
 }

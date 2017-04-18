@@ -20,7 +20,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
 	@Autowired
 	RoleFormatter roleFormatter;
-
+	@Autowired
+	BusTypeFormatter busTypeFormatter;
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
 		registry.jsp("/WEB-INF/jsp/", ".jsp");
@@ -41,6 +42,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	public void addFormatters(FormatterRegistry formatterRegistry) {
 		formatterRegistry.addFormatter(new DateFormatter("yyyyMMdd"));
 		formatterRegistry.addFormatter(roleFormatter);
+		formatterRegistry.addFormatter(busTypeFormatter);
 	}
 	
 	@Bean

@@ -60,6 +60,8 @@ public class UserController {
 		return folderPrefix+"new";
 	}
 	
+	//TODO use logger everywhere
+	//TODO use all messages from resource bundle
 	@RequestMapping(value="/confirm",method=RequestMethod.POST)
 	public ModelAndView reviewNewUser(User user,HttpSession session){
 		ModelAndView mav = new ModelAndView(folderPrefix+"confirm");

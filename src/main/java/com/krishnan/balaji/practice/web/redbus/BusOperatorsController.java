@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.krishnan.balaji.practice.model.a.BusOperator;
-import com.krishnan.balaji.practice.service.redbus.OperatorService;
+import com.krishnan.balaji.practice.service.redbus.BusOperatorService;
 
 @Controller()
 @RequestMapping("/redbus/operators")
@@ -24,7 +24,7 @@ public class BusOperatorsController {
 	private static final String viewFolderPrefix ="/redbus/operators/";
 	
 	@Autowired
-	OperatorService service;
+	BusOperatorService service;
 
 	@GetMapping("/")
 	public ModelAndView serveListOperatorsRequest(){
@@ -109,9 +109,20 @@ public class BusOperatorsController {
 		ModelAndView mav = null;
 		mav = new ModelAndView("redirect:/redbus/operators/");
 		BusOperator newOperator = (BusOperator) session.getAttribute("validatedOperator");
+		//TODO validate if the id from session and id from URL are same or not
 		service.edit(newOperator);
 		redirectAttributes.addFlashAttribute("message", "Operator "+newOperator.getName()+" edited successfully");
 		session.removeAttribute("validatedOperator");
+		return mav;
+	}
+	
+	
+	@GetMapping("/{id}")
+	public ModelAndView serveViewOperatorRequest(@PathVariable long id){
+		ModelAndView mav = new ModelAndView(viewFolderPrefix+"viewOperator");
+		BusOperator operator = service.get(id);//TODO ere fetch with buses
+		mav.getModelMap().put("operator", operator);
+		//mav.getModelMap().put("", arg1);
 		return mav;
 	}
 	

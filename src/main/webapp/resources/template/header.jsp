@@ -7,7 +7,7 @@
 <link href='<c:url value="/resources//css/style.css"/>' rel="stylesheet">
 <link href='<c:url value="/resources/bootstrap/css/bootstrap-theme.css"/>' rel="stylesheet">
 <link rel="shortcut icon" href='<c:url value="/resources/images/favicon.ico"/>' />
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse bg-primary">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">

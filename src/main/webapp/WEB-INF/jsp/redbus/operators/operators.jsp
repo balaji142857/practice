@@ -23,7 +23,9 @@
 					contactNumber:${dummy.contactNumber}<br>
 					headOfficeAddress:${dummy.headOfficeAddress}<br>
 					email:${dummy.email}<br>
-					buses:${dummy.buses}<br>  
+					buses:<a href='<c:url value="/redbus/operators/$dummy.id}/buses/"/>'>view</a><br>
+					<a href='<c:url value="/redbus/operators/${dummy.id}/buses/new"/>' class="btn btn-primary">Add bus</a>
+					  
 				  </div>
 				</div>
 			</c:forEach>
