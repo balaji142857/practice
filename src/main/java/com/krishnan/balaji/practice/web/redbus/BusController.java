@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.krishnan.balaji.practice.model.a.Bus;
 import com.krishnan.balaji.practice.model.a.BusOperator;
@@ -67,17 +66,22 @@ public class BusController {
 	@PostMapping("/new")
 	public ModelAndView handleNewBusRequest(HttpSession session,
 			@PathVariable long operatorId,
-			@RequestParam(name="edit",required=false) String isEdit,
-			RedirectAttributes redirectAttributes){
+			@RequestParam(name="edit",required=false) String isEdit){
+		log.info("handling new bus request "+operatorId+" and edit is "+isEdit);
 		ModelAndView mav = null;
 		if(isEdit==null){
 			Bus bus = (Bus) session.getAttribute("validatedBus");
-			service.addBus(operatorId, bus);
+			log.info("attempting to add bus "+bus);
+			bus = service.addBus(operatorId, bus);
+			log.info("bus added");
 			session.removeAttribute("validatedBus");
+			log.info("removed the session object");
 			mav = new ModelAndView("redirect:/redbus/operators/"+operatorId+"/");
-			BusOperator operator = service.get(operatorId);
-			mav.getModelMap().put("operator", operator);
+			log.info("mav constructed");
+			/*BusOperator operator = service.get(operatorId,true);
+			mav.getModelMap().put("operator", operator);*/
 		}
+		log.info("returning mav: "+mav.getViewName());
 		return mav;
 	}
 	

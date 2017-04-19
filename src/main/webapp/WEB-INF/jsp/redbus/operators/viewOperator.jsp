@@ -17,31 +17,34 @@
 		contactNumber:${operator.contactNumber}<br>
 		headOfficeAddress:${operator.headOfficeAddress}<br>
 		email:${operator.email}<br>
-		buses:${operator.buses}<br>  
+		buses:${operator.buses.size()}<br>  
 		</div>
 	</div>
 	
 	
 	
-	horizontal line	
+		
 	<div class="container">
-	<a class="btn btn-primary" href='<c:url value="/redbus/operators/${operator.id}/buses/new"/>'>Register bus</a>
+	<a class="btn btn-primary" href='<c:url value="/redbus/operators/${operator.id}/buses/new"/>'>Add bus</a>
+	<br><br>
 		<c:choose>
-			<c:when test="${null != operator.buses}">
+			<c:when test="${empty operator.buses}">
 				<div class="altert -alert-info">No buses registered so far.</div>
 			</c:when>
 			<c:otherwise>
-				<c:forEach items="operator.buses" var="currentBus">
+				<c:forEach items="${operator.buses}" var="currentBus">
 					<div class="panel panel-primary panel-modest">
-						<div class="panel-heading">${currentBus.model}</div>
+						<div class="panel-heading">${currentBus.regNumber}</div>
 						<div class="panel-body">
+							model : 			${currentBus.model}<br>
 							seatCapacity : ${currentBus.seatCapacity}<br>
-							busType	     : ${currentBus.busType}
-							<c:if test="${currentBus.isChargingAvailable}">
-								<span class="label label-primary">Charging</span>
+							busType	     : ${currentBus.busType}<br>
+							facilities : 
+							<c:if test="${currentBus.chargingAvailable}">
+								<span class="label label-info">Charging</span>
 							</c:if>
-							<c:if test="${currentBus.isGPSTrackingAvailable}">
-								<span class="label label-primary">GPS Tracking</span>
+							<c:if test="${currentBus.gpsTrackingAvailable}">
+								<span class="label label-info">GPS Tracking</span>
 							</c:if>
 						</div>
 					</div>

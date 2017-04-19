@@ -1,5 +1,6 @@
 package com.krishnan.balaji.practice.model.a;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -24,6 +25,8 @@ public class Bus {
 	private boolean chargingAvailable;
 	private boolean gpsTrackingAvailable;
 	private int seatCapacity;
+	@Column(unique=true)
+	private int regNumber;
 
 	public long getId() {
 		return id;
@@ -80,5 +83,15 @@ public class Bus {
 	public void setBusType(BusType busType) {
 		this.busType = busType;
 	}
+
+	public int getRegNumber() {
+		return regNumber;
+	}
+
+	public void setRegNumber(int regNumber) {
+		this.regNumber = regNumber;
+	}
+	
+	
 
 }

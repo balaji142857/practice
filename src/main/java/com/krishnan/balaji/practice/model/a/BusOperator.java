@@ -17,7 +17,7 @@ public class BusOperator {
 	private long id;
 	@Column(unique = true)
 	private String name;
-	@OneToMany
+	@OneToMany(mappedBy="owningEntity")
 	private Set<Bus> buses;
 	private String contactName;
 	private String contactNumber;

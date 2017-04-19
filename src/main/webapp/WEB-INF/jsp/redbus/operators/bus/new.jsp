@@ -15,13 +15,44 @@
 
 
 		<form:hidden path="id"/>
-		model: <form:input path="model"/> <br>
-		seatingCapacity: <form:input path="seatCapacity"/><br>
-		chargingAvailable? <form:checkbox path="chargingAvailable"/><br>
-		gpsTrackingAvailable? <form:checkbox path="gpsTrackingAvailable"/><br>
-		<form:radiobuttons path="busType" items="${busTypes}"/> <br>
-		<input type="submit" value="create">
-		<input type="reset" value="reset">
+			<div class="form-group">
+				<label for="email">Model:</label>
+				<form:input path="model" id="model" cssClass="form-control"/>
+				<form:errors path="model" cssClass="form-control error" />
+			</div>
+
+			<div class="form-group">
+				<label for="seatCapacity">Registration Number:</label>
+				<form:input path="regNumber" id="regNumber" cssClass="form-control"/>
+				<form:errors path="regNumber" cssClass="form-control error" />
+			</div>
+						
+			<div class="form-group">
+				<label for="seatCapacity">Seating Capacity:</label>
+				<form:input path="seatCapacity" id="seatCapacity" cssClass="form-control"/>
+				<form:errors path="seatCapacity" cssClass="form-control error" />
+			</div>
+			
+			<div class="form-group">
+				<label for="seatCapacity">Mobile Charging</label>
+				<form:checkbox path="chargingAvailable" id="chargingAvailable" cssClass="form-control"/>
+				<form:errors path="chargingAvailable" cssClass="form-control error" />
+			</div>
+			
+			<div class="form-group">
+				<label for="seatCapacity">GPS Tracking</label>
+				<form:checkbox path="gpsTrackingAvailable" id="gpsTrackingAvailable" cssClass="form-control"/>
+				<form:errors path="gpsTrackingAvailable" cssClass="form-control error" />
+			</div>			
+		 
+		 	<div class="form-group">
+				<label for="seatCapacity">Bus Type</label>
+				<form:radiobuttons path="busType" items="${busTypes}"/> <br>
+				<form:errors path="gpsTrackingAvailable" cssClass="form-control error" />
+			</div>
+		
+		<input type="submit" value="create" class="btn btn-primary">
+		<input type="reset" value="reset" class="btn btn-primary">
 	</form:form>
 	</div>
 	<c:import url="/resources/template/footer.jsp"></c:import>

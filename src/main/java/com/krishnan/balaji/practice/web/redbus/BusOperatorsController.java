@@ -3,6 +3,8 @@ package com.krishnan.balaji.practice.web.redbus;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -22,7 +24,7 @@ import com.krishnan.balaji.practice.service.redbus.BusOperatorService;
 public class BusOperatorsController {
 
 	private static final String viewFolderPrefix ="/redbus/operators/";
-	
+	private static final Logger log = LoggerFactory.getLogger(BusOperatorsController.class);
 	@Autowired
 	BusOperatorService service;
 
@@ -119,10 +121,10 @@ public class BusOperatorsController {
 	
 	@GetMapping("/{id}")
 	public ModelAndView serveViewOperatorRequest(@PathVariable long id){
+		log.info("serving viewOperator request for "+id);
 		ModelAndView mav = new ModelAndView(viewFolderPrefix+"viewOperator");
-		BusOperator operator = service.get(id);//TODO ere fetch with buses
+		BusOperator operator = service.get(id,true);
 		mav.getModelMap().put("operator", operator);
-		//mav.getModelMap().put("", arg1);
 		return mav;
 	}
 	

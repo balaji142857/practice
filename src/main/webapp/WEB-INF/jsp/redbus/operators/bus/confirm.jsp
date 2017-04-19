@@ -14,11 +14,31 @@
 	<div class="container">
 		<form:form action="${confirmURL}" method="post" modelAttribute="validatedBus">
 			<form:hidden  path="id"/>
-			<form:input id="model" path="model" cssClass="form-control" readonly="true"/>
-			<form:input id="busType" path="busType" cssClass="form-control" readonly="true"/>
-			<form:input id="chargingAvailable" path="chargingAvailable" cssClass="form-control" readonly="true"/>
-			<form:input id="gpsTrackingAvailable" path="gpsTrackingAvailable" cssClass="form-control" readonly="true"/>
-			<form:input id="seatCapacity" path="seatCapacity" cssClass="form-control" readonly="true"/>
+			<div class="form-group">
+				<label for="model">Model:</label>
+				<form:input id="model" path="model" cssClass="form-control" readonly="true"/>
+			</div>
+			<div class="form-group">
+				<label for="regNumber">Registration Number:</label>
+				<form:input id="regNumber" path="regNumber" cssClass="form-control" readonly="true"/>
+			</div>			
+			<div class="form-group">
+				<label for="busType"></label>
+				<form:input id="busType" path="busType" cssClass="form-control" readonly="true"/>	
+			</div>
+			<div class="form-group">
+				<label for="chargingAvailable"></label>
+				<form:checkbox id="chargingAvailable" path="chargingAvailable" cssClass="form-control" readonly="true"/>	
+			</div>			
+			<div class="form-group">
+				<label for="gpsTrackingAvailable"></label>
+				<form:checkbox id="gpsTrackingAvailable" path="gpsTrackingAvailable" cssClass="form-control" readonly="true"/>	
+			</div>			
+			<div class="form-group">
+				<label for="seatCapacity"></label>
+				<form:input id="seatCapacity" path="seatCapacity" cssClass="form-control" readonly="true"/>	
+			</div>			
+			
 			<input type="submit" value="create" class="btn btn-primary">
 			<input type="submit" name="edit" value="edit" class="btn btn-primary">
 		</form:form>
