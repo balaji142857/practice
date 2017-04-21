@@ -12,6 +12,7 @@
 			<a href='<c:url value ="/redbus/operators/"/>'>operators</a><br>
 			<a href='<c:url value ="/redbus/buses/"/>'>buses</a><br>
 			<a href='<c:url value ="/redbus/services/"/>'>services</a><br>
+			<a href='<c:url value ="/redbus/places/"/>'>Places</a><br>
 		</div>
 		<c:import url="/resources/template/footer.jsp"></c:import>
 	</body>

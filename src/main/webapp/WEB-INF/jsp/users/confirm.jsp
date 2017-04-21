@@ -43,7 +43,7 @@
 	<br>
 
 	<input type="submit" value="create" class="btn btn-primary">
-	<input type="reset" value="reset" class="btn btn-warning">
+	<input type="reset" value="reset" class="btn btn-primary">
 
 </form:form>
 </div>

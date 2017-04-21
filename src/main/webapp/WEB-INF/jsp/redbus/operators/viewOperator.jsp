@@ -26,6 +26,8 @@
 		
 	<div class="container">
 	<a class="btn btn-primary" href='<c:url value="/redbus/operators/${operator.id}/buses/new"/>'>Add bus</a>
+	<a class="btn btn-primary" href='<c:url value="/redbus/operators/${operator.id}/busStops/new"/>'>Add BusStop</a>
+	<a class="btn btn-primary" href='<c:url value="/redbus/opeators/${operator.id}/routes/new"/>'>Add Route</a>
 	<br><br>
 		<c:choose>
 			<c:when test="${empty operator.buses}">

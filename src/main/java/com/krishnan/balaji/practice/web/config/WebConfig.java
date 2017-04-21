@@ -22,6 +22,12 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	RoleFormatter roleFormatter;
 	@Autowired
 	BusTypeFormatter busTypeFormatter;
+	@Autowired
+	PlaceFormatter placeFormatter;
+	@Autowired
+	LocalTimeFormatter timeFormatter;
+	@Autowired BusStopFormatter busFormatter;
+	
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
 		registry.jsp("/WEB-INF/jsp/", ".jsp");
@@ -43,6 +49,9 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		formatterRegistry.addFormatter(new DateFormatter("yyyyMMdd"));
 		formatterRegistry.addFormatter(roleFormatter);
 		formatterRegistry.addFormatter(busTypeFormatter);
+		formatterRegistry.addFormatter(placeFormatter);
+		formatterRegistry.addFormatter(timeFormatter);
+		formatterRegistry.addFormatter(busFormatter);
 	}
 	
 	@Bean

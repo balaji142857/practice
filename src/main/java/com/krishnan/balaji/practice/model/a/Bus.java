@@ -26,7 +26,7 @@ public class Bus {
 	private boolean gpsTrackingAvailable;
 	private int seatCapacity;
 	@Column(unique=true)
-	private int regNumber;
+	private String regNumber;
 
 	public long getId() {
 		return id;
@@ -84,11 +84,11 @@ public class Bus {
 		this.busType = busType;
 	}
 
-	public int getRegNumber() {
+	public String getRegNumber() {
 		return regNumber;
 	}
 
-	public void setRegNumber(int regNumber) {
+	public void setRegNumber(String regNumber) {
 		this.regNumber = regNumber;
 	}
 	

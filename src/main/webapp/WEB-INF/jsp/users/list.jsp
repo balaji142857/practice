@@ -27,6 +27,7 @@
 					<th>FirstName</th>
 					<th>LastName</th>
 					<th>Email</th>
+					<th>Roles</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -37,6 +38,13 @@
 						<td><a href='<c:url value="/users/${currentUser.id}"/>'>${currentUser.firstName}</a></td>
 						<td><a href='<c:url value="/users/${currentUser.id}"/>'>${currentUser.lastName}</a></td>
 						<td><a href='<c:url value="/users/${currentUser.id}"/>'>${currentUser.email}</a></td>
+						<td>
+							<c:if test="${not empty currentUser.authorities}">
+								<c:forEach items="${currentUser.authorities }" var="role">
+									<h4 style="display:inline"><span class="label label-info">${role.name}</span></h4> 
+								</c:forEach>
+							</c:if>	
+						</td>  
 					</tr>
 				</c:forEach>
 			</tbody>

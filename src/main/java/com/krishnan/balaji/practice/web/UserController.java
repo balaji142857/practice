@@ -8,7 +8,6 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -86,7 +85,7 @@ public class UserController {
 		
 		service.create(user);
 		//TODO get the message from resource bundle , locale basedd
-		redirectAttributes.addFlashAttribute("message", "User added");
+		redirectAttributes.addFlashAttribute("message", "User "+ user.getUsername() +" added successfully");
 		return mav;
 	}
 
@@ -113,7 +112,6 @@ public class UserController {
 			HttpSession session){
 		log.debug("In editUserInfo");
 		ModelAndView mav = new ModelAndView("redirect:/"+folderPrefix);
-		redirectAttr.addFlashAttribute("message", "User edited successfuly");
 		//TODO this logic belongs in the service layer, not web
 		User repoUser = (User) session.getAttribute("userToEdit");
 		repoUser.setUsername(editedUser.getUsername());
@@ -131,7 +129,7 @@ public class UserController {
 		}	
 		repoUser.setUpdatedOn(LocalDateTime.now());
 		service.update(repoUser);
-		//mav.getModelMap().put("user", user);
+		redirectAttr.addFlashAttribute("message", "User " + repoUser.getUsername() + " edited successfuly");
 		redirectAttr.addFlashAttribute("user",id);
 		return mav;
 	}

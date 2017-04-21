@@ -19,12 +19,12 @@
 
 
 			<input type="submit" value="confirm" class="btn btn-primary">
-			<input type="submit" name="edit" value="edit" class="btn btn-warning">
+			<input type="submit" name="edit" value="edit" class="btn btn-primary">
+			<a href='<c:url value="/roles/"/>' class="btn btn-primary">Cancel</a>
 
 		</form:form>
 
-		<a href='<c:url value="/roles/"/>'>Cancel</a> <a
-			href='<c:url value="/"/>'>Home</a>
+		
 	</div>
 	<c:import url="/resources/template/footer.jsp"></c:import>
 </body>
