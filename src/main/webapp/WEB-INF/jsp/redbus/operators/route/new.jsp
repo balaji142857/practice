@@ -18,6 +18,7 @@ ul.verticalRadios {
 		<form:form action="${confirmURL}" method="post" modelAttribute="newRoute" class="form-horizontal">
 
 			<form:hidden path="id"/>
+			
 			<div class="form-group">
 				<label for="name" class="control-label col-sm-4">Route Name</label>
 				<div class="col-sm-8">
@@ -27,8 +28,10 @@ ul.verticalRadios {
 			</div>
 			
 			<div class="form-group">
-				<label class="control-label cl-sm-4">  </label>
-				<div class="col-sm-8 alert alert-info">${message}</div>
+				<label for="message" class="control-label col-sm-4"></label>
+				<div class="col-sm-8">
+				 <div class="alert alert-info" id="message">${message}</div>
+				 </div>
 			</div>
 			
 			<div class="form-group">

@@ -27,6 +27,7 @@
 					<th>Origin</th>
 					<th>Destination</th>
 					<th>stops</th>
+					<th>Duration</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -35,12 +36,10 @@
 					<tr>
 						<td>${currentRoute.id}</td>
 						<td>${currentRoute.name}</td>
-						<!-- <td></td>
-						<td></td> -->
-						<td>${currentRoute.stops[0].place.display}</td>
-						
-						<td>${currentRoute.stops[currentRoute.stops.size()-1].place.display}</td>
+						<td>${currentRoute.origin.place.display}</td>
+						<td>${currentRoute.destination.place.display}</td>
 						<td>${currentRoute.stops.size()}</td>
+						<td>${currentRoute.journeyTime}</td>
 					</tr>
 				</c:forEach>
 			</tbody>

@@ -17,8 +17,12 @@ public class BusOperator {
 	private long id;
 	@Column(unique = true)
 	private String name;
-	@OneToMany(mappedBy="owningEntity")
+	@OneToMany(mappedBy = "owningEntity")
 	private Set<Bus> buses;
+	@OneToMany(mappedBy = "operator")
+	private Set<BusStop> busStops;
+	@OneToMany(mappedBy = "operator")
+	private Set<Route> routes;
 	private String contactName;
 	private String contactNumber;
 	private String headOfficeAddress;
@@ -79,6 +83,22 @@ public class BusOperator {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Set<BusStop> getBusStops() {
+		return busStops;
+	}
+
+	public void setBusStops(Set<BusStop> busStops) {
+		this.busStops = busStops;
+	}
+
+	public Set<Route> getRoutes() {
+		return routes;
+	}
+
+	public void setRoutes(Set<Route> routes) {
+		this.routes = routes;
 	}
 
 }

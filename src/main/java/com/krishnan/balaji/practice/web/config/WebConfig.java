@@ -18,15 +18,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @ComponentScan(basePackages = { "com.krishnan.balaji.practice.web","com.krishnan.balaji.practice.model.validation" })
 public class WebConfig extends WebMvcConfigurerAdapter {
 
-	@Autowired
-	RoleFormatter roleFormatter;
-	@Autowired
-	BusTypeFormatter busTypeFormatter;
-	@Autowired
-	PlaceFormatter placeFormatter;
-	@Autowired
-	LocalTimeFormatter timeFormatter;
+	@Autowired RoleFormatter roleFormatter;
+	@Autowired BusTypeFormatter busTypeFormatter;
+	@Autowired PlaceFormatter placeFormatter;
+	@Autowired LocalTimeFormatter timeFormatter;
 	@Autowired BusStopFormatter busFormatter;
+	@Autowired DurationFormatter durationFormatter;
 	
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
@@ -52,6 +49,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		formatterRegistry.addFormatter(placeFormatter);
 		formatterRegistry.addFormatter(timeFormatter);
 		formatterRegistry.addFormatter(busFormatter);
+		formatterRegistry.addFormatter(durationFormatter);
 	}
 	
 	@Bean

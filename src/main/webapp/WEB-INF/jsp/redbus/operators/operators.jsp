@@ -14,6 +14,7 @@
 			</c:if>
 			<a class="btn btn-primary" href='<c:url value="/redbus/operators/new"/>'>Create operator</a>
 			<br><br>
+			<h4>Operators</h4>
 			<c:forEach items="${operators}" var="dummy">
 				<div class="panel panel-primary panel-modest">
 				  <div class="panel-heading">${dummy.name}  </div>
@@ -23,9 +24,9 @@
 					contactNumber:${dummy.contactNumber}<br>
 					headOfficeAddress:${dummy.headOfficeAddress}<br>
 					email:${dummy.email}<br>
-					buses:<a href='<c:url value="/redbus/operators/${dummy.id}/buses/"/>'>view</a><br>
-					<a href='<c:url value="/redbus/operators/${dummy.id}/edit"/>' class="btn btn-primary">Edit info</a>
-					<a href='<c:url value="/redbus/operators/${dummy.id}/buses/new"/>' class="btn btn-primary">Add bus</a>  
+					buses:${dummy.buses.size()}<br>
+					<a href='<c:url value="/redbus/operators/${dummy.id}/"/>' class="btn btn-primary">View</a>
+					<a href='<c:url value="/redbus/operators/${dummy.id}/edit"/>' class="btn btn-primary">Edit</a>  
 				  </div>
 				</div>
 			</c:forEach>

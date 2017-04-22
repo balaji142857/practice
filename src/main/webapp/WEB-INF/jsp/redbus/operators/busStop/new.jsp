@@ -20,15 +20,24 @@ ul.verticalRadios {
 			<form:hidden path="id"/>
 			<!-- place -->
 			<div class="form-group">
-				<label for="email" class="control-label col-sm-4">Place</label>
+				<label for="place" class="control-label col-sm-4">Place</label>
 				<div class="col-sm-8">
 					<form:select path="place" items="${availablePlaces}" itemLabel="display" itemValue="id" id="place" cssClass="form-control"/>
 					<form:errors path="place" cssClass="form-control error" />
 				</div>
 			</div>
+			
+			<div class="form-group">
+				<label for="day" class="control-label col-sm-4">Day</label>
+				<div class="col-sm-8">
+					<form:input  path="day" id="day" cssClass="form-control"/>
+					<form:errors path="day" cssClass="form-control error" />
+				</div>
+			</div>
+						
 			<!-- time -->
 			<div class="form-group">
-				<label for="city" class="control-label col-sm-4">Time</label>
+				<label for="time" class="control-label col-sm-4">Time</label>
 				<div class="col-sm-8">
 					<input type="time" name="time" class="form-control">
 					<%-- <form:input  path="time" id="regNcityumber" cssClass="form-control"/> --%>

@@ -27,6 +27,13 @@ ul.verticalRadios {
 			</div>
 
 			<div class="form-group">
+				<label for="day" class="control-label col-sm-4">Day</label>
+				<div class="col-sm-8">
+					<form:input path="day" id="day" cssClass="form-control" readonly="true"/>
+				</div>
+			</div>
+			
+			<div class="form-group">
 				<label for="city" class="control-label col-sm-4">Time</label>
 				<div class="col-sm-8">
 					<form:input path="time" id="time" cssClass="form-control" readonly="true"/>

@@ -27,12 +27,16 @@ public class BusStop {
 	private LocalTime time;
 	@ManyToOne
 	private Route route;
-	private int ordinal;
+	private int day;
 	@Transient
 	private String displayName;
 
 	public long getId() {
 		return id;
+	}
+	
+	public BusStop() {
+		day = 1;
 	}
 
 	public void setId(long id) {
@@ -71,14 +75,6 @@ public class BusStop {
 		this.route = route;
 	}
 
-	public int getOrdinal() {
-		return ordinal;
-	}
-
-	public void setOrdinal(int ordinal) {
-		this.ordinal = ordinal;
-	}
-
 	public String getDisplayName() {
 		return place.getDisplay() + " @ " + time;
 	}
@@ -86,6 +82,12 @@ public class BusStop {
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
 	}
-	
-	
+
+	public int getDay() {
+		return day;
+	}
+
+	public void setDay(int day) {
+		this.day = day;
+	}
 }

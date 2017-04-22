@@ -13,27 +13,26 @@
 		<div class="panel-heading">Operator info</div>
 		<div class="panel-body">
 		id: ${operator.id}<br>
-		contactName:${operator.contactName}<br>
-		contactNumber:${operator.contactNumber}<br>
-		headOfficeAddress:${operator.headOfficeAddress}<br>
-		email:${operator.email}<br>
-		buses:${operator.buses.size()}<br>  
+		Contact Person : ${operator.contactName}<br>
+		Contact Number : ${operator.contactNumber}<br>
+		Office Address : ${operator.headOfficeAddress}<br>
+		eMail Address : ${operator.email}<br>
+		Buses count : ${operator.buses.size()}<br>  
 		</div>
 	</div>
-	
-	
-	
+	<br>
 		
-	<div class="container">
 	<a class="btn btn-primary" href='<c:url value="/redbus/operators/${operator.id}/buses/new"/>'>Add bus</a>
 	<a class="btn btn-primary" href='<c:url value="/redbus/operators/${operator.id}/busStops/new"/>'>Add BusStop</a>
-	<a class="btn btn-primary" href='<c:url value="/redbus/opeators/${operator.id}/routes/new"/>'>Add Route</a>
-	<br><br>
+	<a class="btn btn-primary" href='<c:url value="/redbus/operators/${operator.id}/routes/new"/>'>Add Route</a>
+	<br>
 		<c:choose>
 			<c:when test="${empty operator.buses}">
-				<div class="altert -alert-info">No buses registered so far.</div>
+				<br><div class="alert alert-info">No Buses registered so far</div>
 			</c:when>
 			<c:otherwise>
+				<br>
+				<h4>Registered Buses</h4>
 				<c:forEach items="${operator.buses}" var="currentBus">
 					<div class="panel panel-primary panel-modest">
 						<div class="panel-heading">${currentBus.regNumber}</div>
@@ -53,7 +52,26 @@
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>
-	</div>
+		<c:choose>
+			<c:when test="${empty operator.routes}">
+				<br><div class="alert alert-info">No routes registered so far</div>
+			</c:when>
+			<c:otherwise>
+			<h4><u>Registered Routes</u></h4>
+				<c:forEach items="${operator.routes}" var="currentRoute">
+					<div class="panel panel-primary panel-modest">
+						<div class="panel-heading">${currentRoute.name}</div>
+						<div class="panel-body">
+						 id: ${currentRoute.id} <br>
+						 Origin: ${currentRoute.origin} <br>
+						 Destination: ${currentRoute.destination} <br>
+						 stops: ${currentRoute.stops.size()} <br>
+						 journeyTime: ${currentRoute.journeyTime} <br>
+						</div>
+					</div>
+				</c:forEach>
+			</c:otherwise>
+		</c:choose>
 	
 	</div>
 	<c:import url="/resources/template/footer.jsp"></c:import>
