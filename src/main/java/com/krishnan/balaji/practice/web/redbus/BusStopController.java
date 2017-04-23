@@ -58,9 +58,7 @@ public class BusStopController {
 	public ModelAndView validateNewBusStopRequest(@Valid BusStop busStop,
 			BindingResult result,
 			HttpSession session,
-			@PathVariable long operatorId,
-			@RequestParam(name="place") String place,
-			@RequestParam(name="time") String time){
+			@PathVariable long operatorId){
 		ModelAndView mav = null;
 		if(result.hasErrors()){
 			log.info(" form has errors");

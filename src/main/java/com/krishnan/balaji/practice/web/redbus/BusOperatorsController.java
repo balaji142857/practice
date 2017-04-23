@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.krishnan.balaji.practice.model.a.BusOperator;
+import com.krishnan.balaji.practice.model.a.exceptions.BusOperatorNotFoundException;
 import com.krishnan.balaji.practice.service.redbus.BusOperatorService;
 
 @Controller()
@@ -46,6 +47,8 @@ public class BusOperatorsController {
 	public ModelAndView serveOperatorEditRequest(@PathVariable long id){
 		ModelAndView mav = new ModelAndView(viewFolderPrefix+"operator_new");
 		BusOperator operator = service.get(id);
+		if(operator == null)
+			throw new BusOperatorNotFoundException("operator with id "+id+" not found");
 		mav.getModelMap().put("newOperator", operator);
 		mav.getModelMap().put("editExistingRequest", "true");
 		return mav;

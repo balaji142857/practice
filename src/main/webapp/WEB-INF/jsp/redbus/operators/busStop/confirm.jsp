@@ -34,17 +34,25 @@ ul.verticalRadios {
 			</div>
 			
 			<div class="form-group">
-				<label for="city" class="control-label col-sm-4">Time</label>
+				<label for="arrival" class="control-label col-sm-4">Arrival</label>
 				<div class="col-sm-8">
-					<form:input path="time" id="time" cssClass="form-control" readonly="true"/>
+					<form:input path="arrival" id="arrival" cssClass="form-control" readonly="true"/>
 				</div>
 			</div>
 						
 			<div class="form-group">
+				<label for="departure" class="control-label col-sm-4">Departure</label>
+				<div class="col-sm-8">
+					<form:input path="departure" id="departure" cssClass="form-control" readonly="true"/>
+				</div>
+			</div>
+			
+			<div class="form-group">
 				<div class="col-sm-4"></div>
 				<div class="col-sm-8">
 					<input type="submit" value="confirm" class="btn btn-primary">
-					<input type="submit" name="edit" value="edit" class="btn btn-primary">	
+					<input type="submit" name="edit" value="edit" class="btn btn-primary">
+					<a href='<c:url value="/redbus/operators/${operatorId}/"/>' class="btn btn-primary">cancel</a>	
 				</div>
 			</div>			
 		</form:form>

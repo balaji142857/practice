@@ -37,14 +37,22 @@ ul.verticalRadios {
 						
 			<!-- time -->
 			<div class="form-group">
-				<label for="time" class="control-label col-sm-4">Time</label>
+				<label for="arrival" class="control-label col-sm-4">Arrival</label>
 				<div class="col-sm-8">
-					<input type="time" name="time" class="form-control">
+					<input type="time" id="arrival" name="arrival" class="form-control">
 					<%-- <form:input  path="time" id="regNcityumber" cssClass="form-control"/> --%>
-					<form:errors path="time" cssClass="form-control error" />
+					<form:errors path="arrival" cssClass="form-control error" />
 				</div>
 			</div>
 						
+			<div class="form-group">
+				<label for="departure" class="control-label col-sm-4">Departure</label>
+				<div class="col-sm-8">
+					<input type="time" name="departure" class="form-control">
+					<%-- <form:input  path="time" id="regNcityumber" cssClass="form-control"/> --%>
+					<form:errors path="departure" cssClass="form-control error" />
+				</div>
+			</div>						
 			
 						
 			
@@ -53,6 +61,7 @@ ul.verticalRadios {
 				<div class="col-sm-8">
 					<input type="submit" value="create" class="btn btn-primary">
 					<input type="reset" value="reset" class="btn btn-primary">
+					<a href='<c:url value="/redbus/operators/${operatorId}/"/>' class="btn btn-primary">cancel</a>
 				</div>
 			</div>
 	</form:form>

@@ -37,17 +37,19 @@ ul.verticalRadios {
 					<th>Id</th>
 					<th>Place</th>
 					<th>Day</th>
-					<th>Time</th>
+					<th>Arrival</th>
+					<th>Departure</th>
 				</tr>
 			</thead>
 			<tbody>
 			<c:out value="${validatedRoute.stops.size()} is the bus stops size"/>
 				<c:forEach items="${validatedRoute.stops}" var="currentStop">
 					<tr>
-						<td><a href='<c:url value="/redbus/${currentStop.id}/edit"/>'>${currentStop.id}</a></td>
-						<td><a href='<c:url value="/redbus/${currentStop.id}/edit"/>'>${currentStop.place.display}</a></td>
-						<td><a href='<c:url value="/redbus/${currentStop.id}/edit"/>'>${currentStop.day}</a></td>
-						<td><a href='<c:url value="/redbus/${currentStop.time}/edit"/>'>${currentStop.time}</a></td>
+						<td>${currentStop.id}</td>
+						<td>${currentStop.place.display}</td>
+						<td>${currentStop.day}</td>
+						<td>${currentStop.arrival}</td>
+						<td>${currentStop.departure}</td>
 					</tr>
 				</c:forEach>
 			</tbody>

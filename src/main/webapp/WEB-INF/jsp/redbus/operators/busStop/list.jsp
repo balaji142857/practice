@@ -25,17 +25,29 @@
 					<th>Id</th>
 					<th>Place</th>
 					<th>Day</th>
-					<th>Time</th>
+					<th>Arrival</th>
+					<th>Departure</th>
+					<th>Options</th>
 				</tr>
 			</thead>
 			<tbody>
 			<c:out value="${busStops.size()} is the bus stops size"/>
 				<c:forEach items="${busStops}" var="currentStop">
 					<tr>
-						<td><a href='<c:url value="/redbus/${currentStop.id}/edit"/>'>${currentStop.id}</a></td>
-						<td><a href='<c:url value="/redbus/${currentStop.id}/edit"/>'>${currentStop.place.display}</a></td>
-						<td><a href='<c:url value="/redbus/${currentStop.day}/edit"/>'>${currentStop.day}</a></td>
-						<td><a href='<c:url value="/redbus/${currentStop.time}/edit"/>'>${currentStop.time}</a></td>
+						<td>${currentStop.id}</td>
+						<td>${currentStop.place.display}</td>
+						<td>${currentStop.day}</td>
+						<td>${currentStop.arrival}</td>
+						<td>${currentStop.departure}</td>
+						<td>
+							<a class="btn btn-success btn-sm" href='<c:url value="/redbus/operators/busStops/${currentStop.id}/edit"/>'>
+								<span class="glyphicon glyphicon-pencil"></span>
+							</a>
+							<a class="btn btn-danger btn-sm" href='<c:url value="/redbus/operators/busStops/${currentStop.id}/delete"/>'>
+								<span class="glyphicon glyphicon-remove"></span>
+							</a>							
+						</td>
+						
 					</tr>
 				</c:forEach>
 			</tbody>

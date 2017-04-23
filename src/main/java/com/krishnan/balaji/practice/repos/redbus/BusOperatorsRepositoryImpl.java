@@ -31,6 +31,8 @@ public class BusOperatorsRepositoryImpl implements BusOperatorsRepositoryCustom 
 		if(loadBuses){
 			log.info("Initializing the proxy objects");
 			Hibernate.initialize(operator);
+			if(null==operator)
+				return null	;
 			log.info(operator.getName());
 			if(operator.getBuses()!=null){
 				log.info("this operator has "+operator.getBuses().size()+" buses");
