@@ -2,8 +2,10 @@ package com.krishnan.balaji.practice.model.a;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 //the type of bus - sleeper, AC, semi, seating, charging...
@@ -20,6 +22,7 @@ public class Bus {
 	private long id;
 	private String model;
 	@ManyToOne
+	@JoinColumn(foreignKey=@ForeignKey(name="FK_BUS_OPERATOR"))
 	private BusOperator owningEntity;
 	private BusType busType;
 	private boolean chargingAvailable;

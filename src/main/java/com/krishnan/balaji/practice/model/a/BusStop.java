@@ -4,8 +4,10 @@ import java.time.LocalTime;
 
 import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
@@ -19,13 +21,17 @@ public class BusStop {
 	@GeneratedValue
 	private long id;
 	@ManyToOne
+	@JoinColumn(foreignKey = @ForeignKey(name = "FK_STOP_OPERATOR"))
 	private BusOperator operator;
 	@OneToOne
+	@JoinColumn(foreignKey = @ForeignKey(name = "FK_STOP_PLACE"))
 	private Place place;
-	// @Temporal(value = TemporalType.TIME)
 	@Convert(converter = LocalTimeConverter.class)
-	private LocalTime time;
+	private LocalTime arrival;
+	@Convert(converter = LocalTimeConverter.class)
+	private LocalTime departure;
 	@ManyToOne
+	@JoinColumn(foreignKey = @ForeignKey(name = "FK_STOP_ROUTE"))
 	private Route route;
 	private int day;
 	@Transient
@@ -34,7 +40,7 @@ public class BusStop {
 	public long getId() {
 		return id;
 	}
-	
+
 	public BusStop() {
 		day = 1;
 	}
@@ -59,14 +65,6 @@ public class BusStop {
 		this.place = place;
 	}
 
-	public LocalTime getTime() {
-		return time;
-	}
-
-	public void setTime(LocalTime time) {
-		this.time = time;
-	}
-
 	public Route getRoute() {
 		return route;
 	}
@@ -76,7 +74,7 @@ public class BusStop {
 	}
 
 	public String getDisplayName() {
-		return place.getDisplay() + " @ " + time;
+		return place.getDisplay() + " @ (in: " + arrival + ", out: " + departure + " )";
 	}
 
 	public void setDisplayName(String displayName) {
@@ -90,4 +88,21 @@ public class BusStop {
 	public void setDay(int day) {
 		this.day = day;
 	}
+
+	public LocalTime getArrival() {
+		return arrival;
+	}
+
+	public void setArrival(LocalTime arrival) {
+		this.arrival = arrival;
+	}
+
+	public LocalTime getDeparture() {
+		return departure;
+	}
+
+	public void setDeparture(LocalTime departure) {
+		this.departure = departure;
+	}
+
 }

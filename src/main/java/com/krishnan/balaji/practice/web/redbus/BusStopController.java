@@ -120,7 +120,8 @@ public class BusStopController {
 				log.info(busStop.getPlace().getLocation());
 			else
 				log.info("busStop place is null");
-			log.info("busStop time is "+busStop.getTime());
+			log.info("busStop arrival ltime is "+busStop.getArrival());
+			log.info("busStop departure ltime is "+busStop.getDeparture());
 		}
 	}
 }

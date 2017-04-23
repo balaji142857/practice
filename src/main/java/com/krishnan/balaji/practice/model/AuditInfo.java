@@ -2,6 +2,7 @@ package com.krishnan.balaji.practice.model;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Convert;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 
@@ -10,6 +11,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.krishnan.balaji.practice.util.LocalDateTimeConverter;
 
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
@@ -22,9 +25,11 @@ public abstract class AuditInfo {
 	private String updatedBy;
 
 	@CreatedDate
+	@Convert(converter=LocalDateTimeConverter.class)
 	private LocalDateTime createdOn;
 
 	@LastModifiedDate
+	@Convert(converter=LocalDateTimeConverter.class)
 	private LocalDateTime updatedOn;
 
 	public String getCreatedBy() {

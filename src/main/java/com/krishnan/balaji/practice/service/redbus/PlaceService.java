@@ -16,6 +16,8 @@ public interface PlaceService {
 
 	Set<Place> listAll();
 
+	void delete(Place place);
+
 	
 
 }

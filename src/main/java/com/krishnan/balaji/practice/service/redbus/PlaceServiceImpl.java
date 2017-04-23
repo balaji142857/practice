@@ -68,4 +68,13 @@ public class PlaceServiceImpl implements PlaceService {
 		return places;
 	}
 
+	@Override
+	public void delete(Place place) {
+		if(em.contains(place)){
+			em.remove(place);
+		}else{
+			place = em.merge(place);
+			em.remove(place);
+		}		
+	}
 }

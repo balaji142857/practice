@@ -97,13 +97,13 @@ public class RouteController {
 				
 				
 				if (firstStop.getDay() == lastStop.getDay()) {
-					route.setJourneyTime(Duration.between(firstStop.getTime(), lastStop.getTime()));
+					route.setJourneyTime(Duration.between(firstStop.getArrival(), lastStop.getDeparture()));
 				}
 				else{
 					//TODO LocalTime.Midnight might be better fit - test it
-					Duration firstDayDuration = Duration.between(firstStop.getTime(), LocalTime.of(23, 59)).plusMinutes(1);
+					Duration firstDayDuration = Duration.between(firstStop.getArrival(), LocalTime.of(23, 59)).plusMinutes(1);
 					Duration inBetween = Duration.ofHours((lastStop.getDay()-1)*24);
-					Duration lastDayDuration = Duration.between(LocalTime.of(0, 0), lastStop.getTime());
+					Duration lastDayDuration = Duration.between(LocalTime.of(0, 0), lastStop.getDeparture());
 					route.setJourneyTime(firstDayDuration.plus(lastDayDuration).plus(inBetween));
 				}
 				log.info("Route duration is "+route.getJourneyTime());

@@ -42,10 +42,10 @@ public class User extends AuditInfo implements UserDetails{
 	@Version
 	private int version;
 	@ManyToMany(fetch=FetchType.EAGER)
-	//@ManyToMany()
 	@JoinTable(name="user_role",
 	joinColumns=@JoinColumn(name="user_id"),
 	inverseJoinColumns=@JoinColumn(name="role_id"))
+	@JoinColumn(foreignKey=@javax.persistence.ForeignKey(name="FK_USER_ROLES"))
 	private Set<Role> authorities;
 					  
 
@@ -163,6 +163,5 @@ public class User extends AuditInfo implements UserDetails{
 	public void setVersion(int version) {
 		this.version = version;
 	}
-
 	
 }

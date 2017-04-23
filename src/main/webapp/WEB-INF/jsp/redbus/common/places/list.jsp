@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
-<title>Users</title>
+<title>Places</title>
 </head>
 <body>
 	<c:import url="/resources/template/header.jsp"></c:import>
@@ -25,27 +25,42 @@
 					<th>Id</th>
 					<th>Location</th>
 					<th>City</th>
-					<th>state</th>
+					<th>State</th>
 					<th>Country</th>
-					<th>landmark</th>
-					<th>pincode</th>
+					<th>Landmark</th>
+					<th>Pin Code</th>
+					<th>Options</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${places}" var="currentPlace" varStatus="vs">
 					<tr>
-						<td><a href='<c:url value="/redbus/places/${currentPlace.id}/edit"/>'>${currentPlace.id}</a></td>
-						<td><a href='<c:url value="/redbus/places/${currentPlace.id}/edit"/>'>${currentPlace.location}</a></td>
-						<td><a href='<c:url value="/redbus/places/${currentPlace.id}/edit"/>'>${currentPlace.city}</a></td>
-						<td><a href='<c:url value="/redbus/places/${currentPlace.id}/edit"/>'>${currentPlace.state}</a></td>
-						<td><a href='<c:url value="/redbus/places/${currentPlace.id}/edit"/>'>${currentPlace.country}</a></td>
-						<td><a href='<c:url value="/redbus/places/${currentPlace.id}/edit"/>'>${currentPlace.landmark}</a></td>
-						<td><a href='<c:url value="/redbus/places/${currentPlace.id}/edit"/>'>${currentPlace.pincode}</a></td>
+						<td>${currentPlace.id}</td>
+						<td>${currentPlace.location}</td>
+						<td>${currentPlace.city}</td>
+						<td>${currentPlace.state}</td>
+						<td>${currentPlace.country}</td>
+						<td>${currentPlace.landmark}</td>
+						<td>${currentPlace.pincode}</td>
+						<td>
+							<a href='<c:url value="/redbus/places/${currentPlace.id}/edit"/>' class="btn btn-success btn-sm">
+								<span class="glyphicon glyphicon-pencil"></span>
+							</a>
+							<a href='<c:url value="/redbus/places/${currentPlace.id}/delete"/>' class="btn btn-danger btn-sm">
+								<span class="glyphicon glyphicon-remove"></span>
+							</a>
+						</td>
+						
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
+		<ul class = "pager">
+		   <li class = "previous"><a href = "#">&larr; Previous</a></li>
+		   <li class = "next"><a href = "#">Next &rarr;</a></li>
+		</ul>
 	</div>
+	
 	<c:import url="/resources/template/footer.jsp"></c:import>
 </body>
 </html>

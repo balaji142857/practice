@@ -24,8 +24,10 @@ public class BusOperator {
 	@OneToMany(mappedBy = "operator")
 	private Set<Route> routes;
 	private String contactName;
+	@Column(unique=true)
 	private String contactNumber;
 	private String headOfficeAddress;
+	@Column(unique=true)
 	private String email;
 	// rating
 

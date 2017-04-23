@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -25,9 +26,11 @@ public class Role extends AuditInfo implements GrantedAuthority {
 	@GeneratedValue
 	private long id;
 	private String name;
-	// @ManyToMany(fetch=FetchType.EAGER)
 	@ManyToMany
-	@JoinTable(name = "user_role", inverseJoinColumns = @JoinColumn(name = "user_id"), joinColumns = @JoinColumn(name = "role_id"))
+	@JoinTable(name = "user_role", 
+	inverseJoinColumns = @JoinColumn(name = "user_id"), 
+	joinColumns = @JoinColumn(name = "role_id"))
+	@JoinColumn(foreignKey=@ForeignKey(name="FK_ROLE_USERS"))
 	private Set<User> users;
 	@Version
 	private int version;

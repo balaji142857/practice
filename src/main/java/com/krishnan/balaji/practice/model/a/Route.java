@@ -2,12 +2,13 @@ package com.krishnan.balaji.practice.model.a;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -22,14 +23,17 @@ public class Route {
 	private long id;
 	private String name;
 	@ManyToOne
+	@JoinColumn(foreignKey=@ForeignKey(name="FK_ROUTE_OPERATOR"))
 	private BusOperator operator;
 	@OneToMany
 	private List<BusStop> stops;
-	// can be derived from the stops set by looking up first & last
-	// adding directly to model for easier reference
+	/* origin & destination can be derived from the stops set by looking up first & last 
+	 entries of stops, adding a link directly to model for easier reference*/
 	@OneToOne
+	@JoinColumn(foreignKey=@ForeignKey(name="FK_ROUTE_STOP_ORIGIN"))
 	private BusStop origin;
 	@OneToOne
+	@JoinColumn(foreignKey=@ForeignKey(name="FK_ROUTE_STOP_DESTINATION"))
 	private BusStop destination;	
 	@Convert(converter = DurationConverter.class)
 	private Duration journeyTime;

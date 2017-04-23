@@ -11,7 +11,7 @@ public class BusStopTimeSort implements Comparator<BusStop> {
 		if (o1.getDay() < o2.getDay())
 			return -1;
 		else if (o1.getDay() == o2.getDay()) {
-			if (o1.getTime().isBefore(o2.getTime()))
+			if (o1.getArrival().isBefore(o2.getArrival()))
 				return -1;
 			else
 				return 1;
