@@ -1,6 +1,7 @@
 package com.krishnan.balaji.practice.model.a;
 
 import java.time.LocalTime;
+import java.util.Set;
 
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -8,6 +9,8 @@ import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
@@ -30,9 +33,10 @@ public class BusStop {
 	private LocalTime arrival;
 	@Convert(converter = LocalTimeConverter.class)
 	private LocalTime departure;
-	@ManyToOne
+	@ManyToMany
+	@JoinTable(name = "route_stops", joinColumns = @JoinColumn(name = "stop_id"), inverseJoinColumns = @JoinColumn(name = "route_id"))
 	@JoinColumn(foreignKey = @ForeignKey(name = "FK_STOP_ROUTE"))
-	private Route route;
+	private Set<Route> associatedRoutes;
 	private int day;
 	@Transient
 	private String displayName;
@@ -63,14 +67,6 @@ public class BusStop {
 
 	public void setPlace(Place place) {
 		this.place = place;
-	}
-
-	public Route getRoute() {
-		return route;
-	}
-
-	public void setRoute(Route route) {
-		this.route = route;
 	}
 
 	public String getDisplayName() {
@@ -105,4 +101,11 @@ public class BusStop {
 		this.departure = departure;
 	}
 
+	public Set<Route> getAssociatedRoutes() {
+		return associatedRoutes;
+	}
+
+	public void setAssociatedRoutes(Set<Route> associatedRoutes) {
+		this.associatedRoutes = associatedRoutes;
+	}
 }

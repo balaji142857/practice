@@ -63,8 +63,8 @@
 						<div class="panel-heading">${currentRoute.name}</div>
 						<div class="panel-body">
 						 id: ${currentRoute.id} <br>
-						 Origin: ${currentRoute.origin} <br>
-						 Destination: ${currentRoute.destination} <br>
+						 Origin: ${currentRoute.origin.displayName} <br>
+						 Destination: ${currentRoute.destination.displayName} <br>
 						 stops: ${currentRoute.stops.size()} <br>
 						 journeyTime: ${currentRoute.journeyTime} <br>
 						</div>

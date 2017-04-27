@@ -1,5 +1,6 @@
 package com.krishnan.balaji.practice.web.redbus;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.krishnan.balaji.practice.model.a.BusOperator;
 import com.krishnan.balaji.practice.model.a.BusStop;
 import com.krishnan.balaji.practice.model.a.Place;
 import com.krishnan.balaji.practice.service.redbus.BusOperatorService;
@@ -96,16 +98,17 @@ public class BusStopController {
 	public ModelAndView listStops(@PathVariable long operatorId,
 			@RequestParam(name="pageNumber",required=false) Integer pageNumber){
 		ModelAndView mav = new ModelAndView(viewFolderPrefix+"list");
-		Set<BusStop> busStops = null;
-		if(null != pageNumber && pageNumber>0)
-			busStops= service.list(pageNumber);
-		else
-			busStops =  service.list(0);
+		List<BusStop> busStops = null;
+		BusOperator operator = operatorService.get(operatorId);
+		if(null == pageNumber || pageNumber<=0)
+			pageNumber = 1;
+		busStops =  service.getByOperatorPaged(pageNumber,operator);
 		log.info("pringin the busStop details");
 		for(BusStop busStop : busStops)
 			logBusStop(busStop);
 		mav.getModelMap().put("operatorId", operatorId);
 		mav.getModelMap().put("busStops", busStops);
+		mav.getModelMap().put("currentPage", pageNumber);
 		return mav;
 	}
 	

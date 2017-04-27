@@ -9,8 +9,9 @@ import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.krishnan.balaji.practice.util.DurationConverter;
@@ -25,7 +26,11 @@ public class Route {
 	@ManyToOne
 	@JoinColumn(foreignKey=@ForeignKey(name="FK_ROUTE_OPERATOR"))
 	private BusOperator operator;
-	@OneToMany
+	@ManyToMany
+	@JoinTable(name="route_stops",
+			joinColumns=@JoinColumn(name="route_id"),
+			inverseJoinColumns=@JoinColumn(name="stop_id"))
+	@JoinColumn(foreignKey = @ForeignKey(name = "FK_ROUTE_STOP"))
 	private List<BusStop> stops;
 	/* origin & destination can be derived from the stops set by looking up first & last 
 	 entries of stops, adding a link directly to model for easier reference*/

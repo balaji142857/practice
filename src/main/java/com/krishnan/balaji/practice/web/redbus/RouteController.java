@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.time.LocalTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -78,38 +79,6 @@ public class RouteController {
 		} else {
 			mav = new ModelAndView(viewFolderPrefix + "confirm");
 			BusOperator operator = operatorService.get(operatorId);
-			if (route.getStops() != null) {
-				//TODO dont create a new instance everytime
-				Collections.sort(route.getStops(),new BusStopTimeSort());
-				boolean first = true;
-				BusStop lastStop = null;
-				for (BusStop stop : route.getStops()) {
-					log.error("mapping buStop to route " + route.getName());
-					stop.setRoute(route);
-					if (first) {
-						first = false;
-						route.setOrigin(stop);
-					}
-					lastStop = stop;
-				}
-				route.setDestination(lastStop);
-				BusStop firstStop = route.getOrigin();
-				
-				
-				if (firstStop.getDay() == lastStop.getDay()) {
-					route.setJourneyTime(Duration.between(firstStop.getArrival(), lastStop.getDeparture()));
-				}
-				else{
-					//TODO LocalTime.Midnight might be better fit - test it
-					Duration firstDayDuration = Duration.between(firstStop.getArrival(), LocalTime.of(23, 59)).plusMinutes(1);
-					Duration inBetween = Duration.ofHours((lastStop.getDay()-1)*24);
-					Duration lastDayDuration = Duration.between(LocalTime.of(0, 0), lastStop.getDeparture());
-					route.setJourneyTime(firstDayDuration.plus(lastDayDuration).plus(inBetween));
-				}
-				log.info("Route duration is "+route.getJourneyTime());
-			} else
-				log.error("busStops of route is null");
-
 			route.setOperator(operator);
 			session.setAttribute("validatedRoute", route);
 			mav.getModelMap().put("validatedRoute", route);
@@ -132,11 +101,15 @@ public class RouteController {
 	public ModelAndView servicRoutesListRequest(@RequestParam(name = "pageNum", required = false) Integer pageNum,
 			@PathVariable long operatorId) {
 		ModelAndView mav = new ModelAndView(viewFolderPrefix + "list");
-		if (pageNum == null || pageNum < 0)
-			pageNum = 0;
-		mav.getModelMap().put("routes", service.list(pageNum));
+		if (pageNum == null || pageNum <= 0)
+			pageNum = 1;
+		BusOperator operator = operatorService.get(operatorId);
+		List<Route> routes = service.listByOperator(pageNum, operator);
+		mav.getModelMap().put("routes", routes);
 		mav.getModelMap().put("operatorId", operatorId);
+		mav.getModelMap().put("currentPage", pageNum);
 		return mav;
 	}
 
 }
+

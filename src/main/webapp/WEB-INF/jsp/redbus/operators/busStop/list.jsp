@@ -31,7 +31,6 @@
 				</tr>
 			</thead>
 			<tbody>
-			<c:out value="${busStops.size()} is the bus stops size"/>
 				<c:forEach items="${busStops}" var="currentStop">
 					<tr>
 						<td>${currentStop.id}</td>
@@ -40,10 +39,10 @@
 						<td>${currentStop.arrival}</td>
 						<td>${currentStop.departure}</td>
 						<td>
-							<a class="btn btn-success btn-sm" href='<c:url value="/redbus/operators/busStops/${currentStop.id}/edit"/>'>
+							<a class="btn btn-success btn-sm" href='<c:url value="/redbus/operators/${operatorId}/busStops/${currentStop.id}/edit"/>'>
 								<span class="glyphicon glyphicon-pencil"></span>
 							</a>
-							<a class="btn btn-danger btn-sm" href='<c:url value="/redbus/operators/busStops/${currentStop.id}/delete"/>'>
+							<a class="btn btn-danger btn-sm" href='<c:url value="/redbus/operators/${operatorId}/busStops/${currentStop.id}/delete"/>'>
 								<span class="glyphicon glyphicon-remove"></span>
 							</a>							
 						</td>
@@ -52,6 +51,13 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		
+		
+		
+		<ul class = "pager">
+		   <li class = "previous"><a href = '<c:url value="/redbus/operators/${operatorId}/busStops/list?pageNumber=${currentPage-1}"/>'>&larr; Previous</a></li>
+		   <li class = "next"><a href ='<c:url value="/redbus/operators/${operatorId}/busStops/list?pageNumber=${currentPage+1}"/>'>Next &rarr;</a></li>
+		</ul>
 	</div>
 	<c:import url="/resources/template/footer.jsp"></c:import>
 </body>

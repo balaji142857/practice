@@ -8,7 +8,6 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaQuery;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,7 +26,7 @@ public class BusStopServiceImpl implements BusStopService{
 
 	@Autowired
 	BusStopsRepository repo;
-	
+	@Autowired BusOperatorService operatorService;
 	@PersistenceContext EntityManager em;
 	
 	@Override
@@ -39,6 +38,7 @@ public class BusStopServiceImpl implements BusStopService{
 	@Override
 	public Set<BusStop> list(int pageNumber) {
 		//TODO move the count to properties
+		
 		Pageable pageable = new PageRequest(pageNumber,20);
 		Page<BusStop> page = repo.findAll(pageable);
 		Iterator<BusStop> busStopIterator = page.iterator();
@@ -65,6 +65,17 @@ public class BusStopServiceImpl implements BusStopService{
 		return em.merge(busStop);
 	}
 
+	@Override	
+	public List<BusStop> getByOperatorPaged(int pageNumber,BusOperator operator) {
+		int pageSize = 10;
+		Query query = em.createQuery("from BusStop where operator.id = ?");
+		query.setParameter(1, operator.getId());
+		query.setFirstResult(pageSize*(pageNumber-1));
+		query.setMaxResults(pageSize);
+		List<BusStop> list = query.getResultList();
+		return list;
+	}
+	
 	@Override
 	public List<BusStop> getByOperator(BusOperator operator) {
 		Query query = em.createQuery("from BusStop where operator.id = ?");

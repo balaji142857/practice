@@ -40,7 +40,8 @@ public class PlaceServiceImpl implements PlaceService {
 
 	@Override
 	public Set<Place> list(int pageNum) {
-		Pageable pageable = new PageRequest(pageNum, 20);
+		int pageSize = 10;
+		Pageable pageable = new PageRequest(pageNum, pageSize);
 		Page<Place> page = repo.findAll(pageable);
 		Iterator<Place> placeIterator = page.iterator();
 		Set<Place> places = new LinkedHashSet<>();

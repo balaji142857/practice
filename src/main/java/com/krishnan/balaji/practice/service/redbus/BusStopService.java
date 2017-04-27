@@ -20,4 +20,6 @@ public interface BusStopService {
 	
 	List<BusStop> getByOperator(BusOperator operator);
 
+	List<BusStop> getByOperatorPaged(int pageNumber, BusOperator operator);
+
 }

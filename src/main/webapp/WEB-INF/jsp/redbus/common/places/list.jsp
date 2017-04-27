@@ -56,8 +56,8 @@
 			</tbody>
 		</table>
 		<ul class = "pager">
-		   <li class = "previous"><a href = "#">&larr; Previous</a></li>
-		   <li class = "next"><a href = "#">Next &rarr;</a></li>
+		   <li class = "previous"><a href = '<c:url value="/redbus/places/list?pageNumber=${currentPage-1}"/>'>&larr; Previous</a></li>
+		   <li class = "next"><a href = '<c:url value="/redbus/places/list?pageNumber=${currentPage+1}"/>'>Next &rarr;</a></li>
 		</ul>
 	</div>
 	

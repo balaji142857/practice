@@ -84,8 +84,8 @@ public class Place {
 
 	public String getDisplay() {
 		if (landmark != null)
-			return location + " : " + city + ", " + state + " (landmark: " + landmark + ")";
+			return location + " : " + city + " (landmark: " + landmark + ")";
 		else
-			return location + " : " + city + ", " + state;
+			return location + " : " + city ;
 	}
 }

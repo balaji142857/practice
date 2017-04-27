@@ -28,6 +28,7 @@
 					<th>Destination</th>
 					<th>stops</th>
 					<th>Duration</th>
+					<th>Options</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -40,6 +41,14 @@
 						<td>${currentRoute.destination.place.display}</td>
 						<td>${currentRoute.stops.size()}</td>
 						<td>${currentRoute.journeyTime}</td>
+						<td>
+							<a class="btn btn-success btn-sm" href='<c:url value="/redbus/operators/${operatorId}/routes/${currentRoute.id}/edit"/>'>
+								<span class="glyphicon glyphicon-pencil"></span>
+							</a>
+							<a class="btn btn-danger btn-sm" href='<c:url value="/redbus/s/${operatorId}/busStops/${currentRoute.id}/delete"/>'>
+								<span class="glyphicon glyphicon-remove"></span>
+							</a>						
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>

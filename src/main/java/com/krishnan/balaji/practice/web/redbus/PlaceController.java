@@ -31,8 +31,8 @@ public class PlaceController {
 	@GetMapping
 	public ModelAndView listPlaces(@RequestParam(required = false, name = "pageNum") Integer pageNum) {
 		ModelAndView mav = new ModelAndView(viewFolderPrefix + "list");
-		if (pageNum == null)
-			pageNum = 0;
+		if (pageNum == null || pageNum <=0)
+			pageNum = 1;
 		mav.getModelMap().put("places", service.list(pageNum));
 		mav.getModelMap().put("currentPage", pageNum);
 		return mav;
