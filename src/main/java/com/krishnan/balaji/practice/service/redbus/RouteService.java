@@ -12,11 +12,13 @@ public interface RouteService {
 
 	public Route get(long id);
 
-	public Set<Route> list(int pageNum);
+	//public Set<Route> list(int pageNum);
 	
 	public List<Route> listByOperator(int pageNum,BusOperator operator);
 
-	public Set<Route> listAll();
+	//public Set<Route> listAll();
+	
+	public List<Route> listAllByOperator(BusOperator operator);
 
 	public Route update(Route route);
 

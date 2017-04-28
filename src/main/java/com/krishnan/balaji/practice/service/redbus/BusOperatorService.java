@@ -17,6 +17,8 @@ public interface BusOperatorService {
 	public Bus getBus(long operatorId, long id);
 	public Bus edit(long operatorId, Bus bus);
 	public Set<Bus> listBuses(long operatorId);
+	public Bus getBusByRegistrationNumber(BusOperator operator, String registrationNumber);
+	public Bus getBus(long busId);
 	
 	
 

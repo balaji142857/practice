@@ -22,8 +22,12 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	@Autowired BusTypeFormatter busTypeFormatter;
 	@Autowired PlaceFormatter placeFormatter;
 	@Autowired LocalTimeFormatter timeFormatter;
-	@Autowired BusStopFormatter busFormatter;
+	@Autowired LocalDateFormatter dateFormatter;
+	@Autowired BusStopFormatter busStopFormatter;
 	@Autowired DurationFormatter durationFormatter;
+	@Autowired RouteFormatter routeFormatter;
+	@Autowired BusFormatter busFormatter;
+	
 	
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
@@ -48,8 +52,11 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		formatterRegistry.addFormatter(busTypeFormatter);
 		formatterRegistry.addFormatter(placeFormatter);
 		formatterRegistry.addFormatter(timeFormatter);
-		formatterRegistry.addFormatter(busFormatter);
+		formatterRegistry.addFormatter(dateFormatter);
+		formatterRegistry.addFormatter(busStopFormatter);
 		formatterRegistry.addFormatter(durationFormatter);
+		formatterRegistry.addFormatter(routeFormatter);
+		formatterRegistry.addFormatter(busFormatter);
 	}
 	
 	@Bean

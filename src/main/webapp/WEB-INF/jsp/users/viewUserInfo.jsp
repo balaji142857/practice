@@ -64,7 +64,7 @@
 				<label for="lastName" class="control-label col-sm-2"></label>
 				<div class="col-sm-10">
 					<input type="submit" value="Edit" class="btn btn-primary">
-					<a href='<c:url value="/users/"/>' class="btn btn-warning">
+					<a href='<c:url value="/users/"/>' class="btn btn-primary">
 				        <i class="fa fa-ban" aria-hidden="true"></i> Cancel
 				    </a>
 				</div>

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.krishnan.balaji.practice.model.a.Bus;
 import com.krishnan.balaji.practice.model.a.BusOperator;
@@ -47,7 +48,7 @@ public class BusController {
 	public ModelAndView handleConfirmationRequest(@Valid Bus bus,
 			BindingResult result,
 			@RequestParam(value="editRequest",required=false) String isEditRequest,
-			@RequestParam(value="editExistingRequest",required=false) String isEditExistingRequest,
+			@RequestParam(name="editExistingRequest",required=false) String isEditExistingRequest,
 			@PathVariable long operatorId,
 			HttpSession session){
 		ModelAndView mav = null;
@@ -60,6 +61,8 @@ public class BusController {
 			mav.getModelMap().put("validatedBus", bus);	
 			session.setAttribute("validatedBus", bus);
 		}
+		if(isEditExistingRequest !=null && Boolean.valueOf(isEditExistingRequest))
+			mav.getModelMap().put("editExisting", true);
 		return mav;
 	}
 	
@@ -71,30 +74,60 @@ public class BusController {
 		ModelAndView mav = null;
 		if(isEdit==null){
 			Bus bus = (Bus) session.getAttribute("validatedBus");
-			log.info("attempting to add bus "+bus);
 			bus = service.addBus(operatorId, bus);
-			log.info("bus added");
 			session.removeAttribute("validatedBus");
-			log.info("removed the session object");
-			mav = new ModelAndView("redirect:/redbus/operators/"+operatorId+"/");
-			log.info("mav constructed");
-			/*BusOperator operator = service.get(operatorId,true);
-			mav.getModelMap().put("operator", operator);*/
+			mav = new ModelAndView("redirect:/redbus/operators/"+operatorId+"/buses/list");
+			mav.getModelMap().put("message", "Bus "+bus.getRegNumber()+" created succssfuly ");
 		}
 		log.info("returning mav: "+mav.getViewName());
 		return mav;
 	}
 	
-	@GetMapping("/edit")
-	public ModelAndView serveEditBusRequest(@Valid BusOperator operator){
+	@GetMapping("/{id}/edit")
+	public ModelAndView serveEditBusRequest(@PathVariable long operatorId,
+			@PathVariable long id){
 		log.info("serving edit bus request");
-		ModelAndView mav = null;
+		ModelAndView mav = new ModelAndView(viewFolderPrefix+"new");
+		Bus bus = service.getBus(operatorId, id);
+		mav.getModelMap().put("newBus", bus);
+		mav.getModelMap().put("editExisting", true);
 		return mav;
 	}
 	
-	@PostMapping("/edit")
-	public ModelAndView handleEditBusRequest(@Valid BusOperator operator){
-		ModelAndView mav = null;
+	@PostMapping("/{id}/edit")
+	public ModelAndView handleEditBusRequest(HttpSession session,
+			@PathVariable long operatorId,
+			@PathVariable long id,
+			RedirectAttributes redirectAttributes){
+		ModelAndView mav = new ModelAndView("redirect:/redbus/operators/"+operatorId+"/buses/list");
+		Bus editedBus = (Bus) session.getAttribute("validatedBus");
+		Bus persistentBus = service.getBus(operatorId, id);
+		merge(persistentBus,editedBus);
+		editedBus = service.edit(operatorId, persistentBus);
+		session.removeAttribute("validatedBus");
+		redirectAttributes.addFlashAttribute("message", "Bus "+editedBus.getRegNumber()+" edited successfuly");
+		return mav;
+	}
+	
+	private void merge(Bus persistentBus, Bus editedBus) {
+		persistentBus.setBusType(editedBus.getBusType());	
+		persistentBus.setChargingAvailable(editedBus.isChargingAvailable());
+		persistentBus.setGpsTrackingAvailable(editedBus.isGpsTrackingAvailable());
+		persistentBus.setModel(editedBus.getModel());
+		persistentBus.setRegNumber(editedBus.getRegNumber());
+		persistentBus.setSeatCapacity(editedBus.getSeatCapacity());
+	}
+	@GetMapping(value={"/list","/"})
+	public ModelAndView servetListRequest(@PathVariable long operatorId,
+			@RequestParam(name="pageNumber",required=false) Long pageNumber){
+		if(pageNumber == null || pageNumber <=1 )
+			pageNumber = 1l;
+		ModelAndView mav = new ModelAndView(viewFolderPrefix+"list");
+		BusOperator operator  = service.get(operatorId, true);
+		mav.getModelMap().put("buses", operator.getBuses());
+		mav.getModelMap().put("currentPage", pageNumber);
+		
+		
 		return mav;
 	}
 

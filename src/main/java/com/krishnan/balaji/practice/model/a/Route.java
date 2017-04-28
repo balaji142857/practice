@@ -13,6 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 import com.krishnan.balaji.practice.util.DurationConverter;
 
@@ -42,6 +43,8 @@ public class Route {
 	private BusStop destination;	
 	@Convert(converter = DurationConverter.class)
 	private Duration journeyTime;
+	@Transient
+	private String displayName;
 
 	public long getId() {
 		return id;
@@ -98,5 +101,15 @@ public class Route {
 	public void setJourneyTime(Duration journeyTime) {
 		this.journeyTime = journeyTime;
 	}
+
+	public String getDisplayName() {
+		return name + " " + journeyTime;
+	}
+
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
+	
+	
 
 }

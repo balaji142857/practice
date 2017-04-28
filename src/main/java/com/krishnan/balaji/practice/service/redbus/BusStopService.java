@@ -14,12 +14,12 @@ public interface BusStopService {
 
 	List<BusStop> listAll();
 
-	BusStop getById(long id);
-
 	BusStop update(BusStop busStop);
 	
 	List<BusStop> getByOperator(BusOperator operator);
 
 	List<BusStop> getByOperatorPaged(int pageNumber, BusOperator operator);
+
+	BusStop getById(long id, boolean fetchRoutes);
 
 }

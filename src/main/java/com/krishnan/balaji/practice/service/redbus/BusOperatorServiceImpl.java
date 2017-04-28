@@ -86,9 +86,17 @@ public class BusOperatorServiceImpl implements BusOperatorService {
 
 	@Override
 	public Set<Bus> listBuses(long operatorId) {
-		
-		
 		return null;
+	}
+
+	@Override
+	public Bus getBusByRegistrationNumber(BusOperator opeartor, String registrationNumber) {
+		return busRepo.findByRegNumberAndOwningEntity(registrationNumber, opeartor);
+	}
+
+	@Override
+	public Bus getBus(long busId) {
+		return busRepo.findOne(busId);
 	}
 
 }

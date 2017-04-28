@@ -1,10 +1,6 @@
 package com.krishnan.balaji.practice.web.redbus;
 
-import java.time.Duration;
-import java.time.LocalTime;
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -29,8 +25,11 @@ import com.krishnan.balaji.practice.model.a.Route;
 import com.krishnan.balaji.practice.service.redbus.BusOperatorService;
 import com.krishnan.balaji.practice.service.redbus.BusStopService;
 import com.krishnan.balaji.practice.service.redbus.RouteService;
-import com.krishnan.balaji.practice.util.BusStopTimeSort;
-
+/**
+ * 
+ * No edit functionality for Route, will have to delete and recreate if needed
+ *
+ */
 @Controller
 @RequestMapping("/redbus/operators/{operatorId}/routes/")
 public class RouteController {

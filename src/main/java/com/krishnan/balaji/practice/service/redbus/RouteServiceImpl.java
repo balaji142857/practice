@@ -77,7 +77,7 @@ public class RouteServiceImpl implements RouteService {
 		return repo.findOne(id);
 	}
 
-	@Override
+	/*@Override
 	public Set<Route> list(int pageNum) {
 		Pageable pageable = new PageRequest(pageNum, 20);
 		Page<Route> page = repo.findAll(pageable);
@@ -87,9 +87,9 @@ public class RouteServiceImpl implements RouteService {
 			routes.add(pageIterator.next());
 		}
 		return routes;
-	}
+	}*/
 
-	@Override
+	/*@Override
 	public Set<Route> listAll() {
 		Iterable<Route> iterable = repo.findAll();
 		Iterator<Route> routeIterator = iterable.iterator();
@@ -98,7 +98,7 @@ public class RouteServiceImpl implements RouteService {
 			routes.add(routeIterator.next());
 		}
 		return routes;
-	}
+	}*/
 
 	@Override
 	public Route update(Route route) {
@@ -112,6 +112,13 @@ public class RouteServiceImpl implements RouteService {
 		query.setParameter(1, operator.getId());
 		query.setFirstResult(pageSize*(pageNum-1));
 		query.setMaxResults(pageSize);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<Route> listAllByOperator(BusOperator operator) {
+		Query query = em.createQuery("from Route where operator.id = ?");
+		query.setParameter(1, operator.getId());
 		return query.getResultList();
 	}
 

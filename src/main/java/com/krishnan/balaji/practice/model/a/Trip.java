@@ -2,12 +2,32 @@ package com.krishnan.balaji.practice.model.a;
 
 import java.time.LocalDate;
 
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.krishnan.balaji.practice.util.LocalDateConverter;
+
+@Entity
 public class Trip {
 
+	@Id
+	@GeneratedValue
 	private long id;
-	private LocalDate startDate;
+	@Convert(converter=LocalDateConverter.class)
+	private LocalDate tripDate;
+	@ManyToOne
+	@JoinColumn(foreignKey=@ForeignKey(name="fk_trip_opeator"))
 	private BusOperator operator;
+	@ManyToOne
+	@JoinColumn(foreignKey=@ForeignKey(name="fk_trip_bus"))
 	private Bus bus;
+	@ManyToOne
+	@JoinColumn(foreignKey=@ForeignKey(name="fk_trip_route"))
 	private Route route;
 
 	public long getId() {
@@ -18,12 +38,12 @@ public class Trip {
 		this.id = id;
 	}
 
-	public LocalDate getStartDate() {
-		return startDate;
+	public LocalDate getTripDate() {
+		return tripDate;
 	}
 
-	public void setStartDate(LocalDate startDate) {
-		this.startDate = startDate;
+	public void setTripDate(LocalDate startDate) {
+		this.tripDate = startDate;
 	}
 
 	public BusOperator getOperator() {

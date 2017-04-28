@@ -22,7 +22,7 @@
 			<form:input path="id" readonly="true" cssClass="form-control"/>
 			
 			<input type="submit" name="edit" value="Edit" class="btn btn-primary">
-			<input type="reset" value="reset" class="btn btn-warning">
+			<input type="reset" value="reset" class="btn btn-primary">
 			<br>
 		</form:form>
 		<c:if test="${empty usersInRole}">

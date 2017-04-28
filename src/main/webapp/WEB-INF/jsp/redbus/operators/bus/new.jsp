@@ -72,8 +72,19 @@ ul.verticalRadios {
 			<div class="form-group">
 				<div class="col-sm-4"></div>
 				<div class="col-sm-8">
-					<input type="submit" value="create" class="btn btn-primary">
+				<c:choose>
+					<c:when test="${editExisting}">
+						<input type="submit" value="edit" class="btn btn-primary">
+						<input type="hidden" name="editExistingRequest" value="true">
+					</c:when>
+					<c:otherwise>
+						<input type="submit" value="create" class="btn btn-primary">
+					</c:otherwise>
+				</c:choose>
+					
+					
 					<input type="reset" value="reset" class="btn btn-primary">
+					<a href='<c:url value="/redbus/operators/${operatorId}/buses/list"/>' class="btn btn-primary">Cancel</a>
 				</div>
 			</div>
 	</form:form>

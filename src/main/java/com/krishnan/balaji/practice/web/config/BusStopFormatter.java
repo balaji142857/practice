@@ -35,7 +35,7 @@ public class BusStopFormatter implements Formatter<BusStop>{
 			return null;
 		long id = Long.parseLong(text);
 		log.error("busStop id is "+id);
-		return busStopService.getById(id);
+		return busStopService.getById(id,false);
 	}
 
 }

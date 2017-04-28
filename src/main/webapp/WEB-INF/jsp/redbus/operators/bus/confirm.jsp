@@ -14,9 +14,17 @@ ul.verticalRadios {
 	<c:import url="/resources/template/header.jsp"></c:import>
 	
 	
-	<c:url value="/redbus/operators/${operatorId}/buses/new" var="confirmURL"/>
+	<c:choose>
+		<c:when test="${editExisting}">
+			<c:url value="/redbus/operators/${operatorId}/buses/${validatedBus.id}/edit" var="confirmURL"/>
+		</c:when>
+		<c:otherwise>
+			<c:url value="/redbus/operators/${operatorId}/buses/new" var="confirmURL"/>		
+		</c:otherwise>
+	</c:choose>
 	
-	<div class="container">
+	
+		<div class="container">
 		<form:form action="${confirmURL}" method="post" modelAttribute="validatedBus" class="form-horizontal">
 			<form:hidden  path="id"/>
 			<div class="form-group">
@@ -60,8 +68,9 @@ ul.verticalRadios {
 			<div class="form-group">
 				<div class="col-sm-4"></div>
 				<div class="col-sm-8">
-					<input type="submit" value="create" class="btn btn-primary">
-					<input type="submit" name="edit" value="edit" class="btn btn-primary">	
+					<input type="submit" value="confirm" class="btn btn-primary">
+					<input type="submit" name="edit" value="edit" class="btn btn-primary">
+					<a href='<c:url value="/redbus/operators/${operatorId}/buses/list"/>' class="btn btn-primary">Cancel</a>	
 				</div>
 			</div>			
 		</form:form>

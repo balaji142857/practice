@@ -32,7 +32,12 @@
 			</c:when>
 			<c:otherwise>
 				<br>
-				<h4>Registered Buses</h4>
+				<div>
+					<h4 style="display:inline-block">
+						<u>Registered Buses</u> 
+						<a href='<c:url value="/redbus/operators/${operator.id}/buses/list"/>' class="btn btn-sm btn-primary">View Buses</a>
+					</h4>
+				</div>
 				<c:forEach items="${operator.buses}" var="currentBus">
 					<div class="panel panel-primary panel-modest">
 						<div class="panel-heading">${currentBus.regNumber}</div>
@@ -57,7 +62,12 @@
 				<br><div class="alert alert-info">No routes registered so far</div>
 			</c:when>
 			<c:otherwise>
-			<h4><u>Registered Routes</u></h4>
+			<div>
+			<h4 style="display:inline-block">
+				<u>Registered Routes</u> 
+				<a href='<c:url value="/redbus/operators/${operator.id}/routes/list"/>' class="btn btn-sm btn-primary">View Routes</a>
+			</h4>
+			</div>
 				<c:forEach items="${operator.routes}" var="currentRoute">
 					<div class="panel panel-primary panel-modest">
 						<div class="panel-heading">${currentRoute.name}</div>

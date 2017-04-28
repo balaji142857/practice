@@ -28,6 +28,11 @@ import com.krishnan.balaji.practice.service.redbus.BusOperatorService;
 import com.krishnan.balaji.practice.service.redbus.BusStopService;
 import com.krishnan.balaji.practice.service.redbus.PlaceService;
 
+/**
+ * 
+ * No edit functionality for bus stop - will have to delete and recreate
+ *
+ */
 @Controller
 @RequestMapping("/redbus/operators/{operatorId}/busStops/")
 public class BusStopController {
@@ -94,7 +99,7 @@ public class BusStopController {
 	}
 
 
-	@GetMapping("list")
+	@GetMapping(value={"list",""})
 	public ModelAndView listStops(@PathVariable long operatorId,
 			@RequestParam(name="pageNumber",required=false) Integer pageNumber){
 		ModelAndView mav = new ModelAndView(viewFolderPrefix+"list");
@@ -111,6 +116,7 @@ public class BusStopController {
 		mav.getModelMap().put("currentPage", pageNumber);
 		return mav;
 	}
+	
 	
 	private void logBusStop(BusStop busStop) {
 		if(busStop== null)
