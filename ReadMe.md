@@ -67,7 +67,7 @@ Have used light wight tomcat as the server for this demo application. Follow the
 ```
      
 **Spring Security Filter chain explained**
-Spring security by default comes with checks against many of the know issues out of the box like CSRF, XSS etc. However for few other vulnerabilities, it requires the developers to provide it with additional info to secure the app and details of such configuration are well documented in the spring reference manual.  
+Spring security by default comes with checks against many of the known issues out of the box like CSRF, XSS etc. However for few other vulnerabilities, it requires the developers to provide it with additional info to secure the app and details of such configuration are well documented in the spring reference manual.  
 
 
 ----------
@@ -80,7 +80,7 @@ Spring security Internals
 -------------------------
 Spring security is implemented using Servlet Filters so that for each and every request, based on the requested resources selected filters can be chained together making it highly modular, thanks to Rob Winch.
 
-**List of filters: (know to me, many more exist!!!)  **
+**List of filters: (known to me, many more exist!!!)  **
 >- **DelegatingFilterProxy** 
 	 1. This is directly defined in web.xml as a servlet Filter
 	 2. It delegates all work to FilterChainProxy 
