@@ -15,7 +15,7 @@
 		<hibernate.version>4.3.10.Final</hibernate.version>
 		<hibernate.envers.version>4.3.10.Final</hibernate.envers.version>
 		<p6spy.version>3.0.0</p6spy.version>
-		<spring.data.jpa.version>1.8.0.RELEASE</spring.data.jpa.version>
+		<spring.data.jpa.version>1.11.23.RELEASE</spring.data.jpa.version>
 		<servlet.version>3.1.0</servlet.version>
 		<jstl.version>1.2</jstl.version>
 		<jsp.version>2.3.1</jsp.version>
